@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "social-h"
+version = "0.1.0"
+description = "Rede social em Django, requisito do curso Desenvolvedor Full Stack Python V2 da EBAC"
+authors = ["Higor Rodrigues dos Santos Cruz <higorrsc@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^5.0.1"
+djangorestframework = "^3.14.0"
+pillow = "^10.2.0"
+djangorestframework-simplejwt = "^5.3.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+factory-boy = "^3.3.0"
+pytest-django = "^4.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
