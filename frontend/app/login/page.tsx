@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label'
 export default function LoginAccount() {
     return (
         <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
-            <div className="w-full m-auto bg-white lg:max-w-lg">
+            <div className="w-full m-auto lg:max-w-lg">
                 <Card>
                     <CardHeader className="space-y-1">
                         <CardTitle className="text-2xl text-center">
@@ -46,7 +46,9 @@ export default function LoginAccount() {
                         </div>
                     </CardContent>
                     <CardFooter className="flex flex-col">
-                        <Button className="w-full">Login</Button>
+                        <Button className="w-full border rounded bg-slate-700">
+                            Login
+                        </Button>
                         <p className="mt-2 text-xs text-center text-gray-700">
                             {' '}
                             Não tem uma conta?{' '}
