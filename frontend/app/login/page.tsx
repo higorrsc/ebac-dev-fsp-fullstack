@@ -12,6 +12,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import Link from 'next/link'
 
 export default function LoginAccount() {
     return (
@@ -53,7 +54,7 @@ export default function LoginAccount() {
                             {' '}
                             Não tem uma conta?{' '}
                             <span className=" text-blue-600 hover:underline">
-                                Cadastre-se
+                                <Link href={'/signup'}>Cadastre-se</Link>
                             </span>
                         </p>
                     </CardFooter>
