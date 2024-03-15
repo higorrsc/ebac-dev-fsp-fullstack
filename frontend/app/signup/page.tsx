@@ -9,7 +9,6 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
@@ -49,6 +48,21 @@ export default function Signup() {
                         <Button className="w-full border rounded bg-slate-700">
                             Cadastrar
                         </Button>
+                        <p className="text-center text-sm mt-16">
+                            Ao se inscrever, você concorda com os Termos de
+                            Serviço e a Política de Privacidade, incluindo o Uso
+                            de Cookies.
+                        </p>
+
+                        <p className="text-center  mt-8 mb-4">
+                            Já possui uma conta?
+                        </p>
+                        <Link
+                            href={'/login'}
+                            className="border-1 w-full rounded bg-slate-700 h-10 flex items-center justify-center"
+                        >
+                            Entrar
+                        </Link>
                     </CardFooter>
                 </Card>
             </div>
