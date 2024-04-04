@@ -1,12 +1,9 @@
 from django.contrib.auth.models import User
-from django.http import Http404, request
 from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets, generics, status, permissions
+from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
-
-from posts import serializers
 
 from .models import FriendshipRequest
 from .serializers import FriendshipRequestSerializer
