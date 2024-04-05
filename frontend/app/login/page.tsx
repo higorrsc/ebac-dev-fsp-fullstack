@@ -1,6 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,11 +18,32 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
+const loginSchema = z.object({
+    username: z.string().trim().min(1, {
+        message: 'O nome de usuário deve ser preenchido'
+    }),
+    password: z.string().min(1, { message: 'A senha deve ser preenchida' })
+})
+
+type FormData = z.infer<typeof loginSchema>
+
 export default function LoginAccount() {
+    const {
+        handleSubmit,
+        register,
+        formState: { errors }
+    } = useForm<FormData>({
+        mode: 'onSubmit',
+        resolver: zodResolver(loginSchema)
+    })
+
     return (
         <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
             <div className="w-full m-auto lg:max-w-lg">
-                <form id="login" onSubmit={(e) => e.preventDefault()}>
+                <form
+                    id="login"
+                    onSubmit={handleSubmit((data) => console.log(data))}
+                >
                     <Card>
                         <CardHeader className="space-y-1">
                             <CardTitle className="text-2xl text-center">
@@ -37,7 +61,13 @@ export default function LoginAccount() {
                                     type="text"
                                     placeholder=""
                                     autoComplete="username"
+                                    {...register('username')}
                                 />
+                                {errors.username && (
+                                    <p className="text-red-500">
+                                        {errors.username?.message}
+                                    </p>
+                                )}
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="password">Senha</Label>
@@ -45,7 +75,13 @@ export default function LoginAccount() {
                                     id="password"
                                     type="password"
                                     autoComplete="current-password"
+                                    {...register('password')}
                                 />
+                                {errors.password && (
+                                    <p className="text-red-500">
+                                        {errors.password?.message}
+                                    </p>
+                                )}
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Checkbox id="terms" />
@@ -61,7 +97,6 @@ export default function LoginAccount() {
                             <Button
                                 className="w-full border rounded bg-slate-700"
                                 type="submit"
-                                onClick={() => console.log('login')}
                             >
                                 Login
                             </Button>
