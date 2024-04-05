@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "djoser",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "api",
     "users",
     "user_profile",
@@ -96,6 +98,19 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 }
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_URL": "auth/password/reset-password-confirmation/?uid={uid}&token={token}",
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": False,
+    "SERIALIZERS": {},
+}
+
+SITE_NAME = "Social H"
+
+DOMAIN = "localhost:3000"
+
 ROOT_URLCONF = "social_h.urls"
 
 TEMPLATES = [
@@ -121,21 +136,21 @@ WSGI_APPLICATION = "social_h.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
     "default": {
-        "ENGINE": "django_cockroachdb",
-        "NAME": config("DATABASE_NAME"),
-        "USER": config("DATABASE_USER"),
-        "PASSWORD": config("DATABASE_PASS"),
-        "HOST": config("DATABASE_HOST"),
-        "PORT": config("DATABASE_PORT"),
-        "OPTIONS": {
-            "sslmode": "verify-full",
-        },
-    },
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+    # "default": {
+    #     "ENGINE": "django_cockroachdb",
+    #     "NAME": config("DATABASE_NAME"),
+    #     "USER": config("DATABASE_USER"),
+    #     "PASSWORD": config("DATABASE_PASS"),
+    #     "HOST": config("DATABASE_HOST"),
+    #     "PORT": config("DATABASE_PORT"),
+    #     "OPTIONS": {
+    #         "sslmode": "verify-full",
+    #     },
+    # },
 }
 
 
