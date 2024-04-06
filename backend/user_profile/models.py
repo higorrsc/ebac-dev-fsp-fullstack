@@ -21,3 +21,6 @@ class UserProfile(models.Model):
     lives_in = models.CharField(max_length=200, null=True, blank=True)
     studies_at = models.CharField(max_length=200, null=True, blank=True)
     profile_image = models.ImageField(upload_to="profile_images", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.owner}"
