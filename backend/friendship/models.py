@@ -23,3 +23,6 @@ class FriendshipRequest(models.Model):
         null=False,
     )
     status_request = models.CharField(max_length=10, choices=status, default="pending")
+
+    def __str__(self):
+        return f"{self.request_from} -> {self.request_to}"
