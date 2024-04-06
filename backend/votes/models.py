@@ -23,4 +23,4 @@ class Vote(models.Model):
     )
 
     def __str__(self):
-        return self.post.content
+        return f"({'U' if self.up_vote_by else 'D'} - {self.up_vote_by or self.down_vote_by}) {self.post.content}"
