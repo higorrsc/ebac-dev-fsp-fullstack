@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import apiService from '../services/apiService'
 
 const registerUserSchema = z
     .object({
@@ -42,7 +44,27 @@ const registerUserSchema = z
 
 type FormData = z.infer<typeof registerUserSchema>
 
-export default function Signup() {
+export default function SignUp() {
+    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [apiErrors, setApiErrors] = useState<string[]>([])
+
+    const submitSignUp = async (data: FormData) => {
+        const apiData = {
+            email: data.email,
+            username: data.username,
+            password: data.password
+        }
+        const response = await apiService.post('/users/', apiData)
+
+        if (response.errors) {
+            setApiErrors(response.errors)
+        } else {
+            console.log(response)
+        }
+    }
+
     const {
         handleSubmit,
         register,
@@ -55,10 +77,7 @@ export default function Signup() {
     return (
         <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
             <div className="w-full m-auto lg:max-w-lg">
-                <form
-                    id="signup"
-                    onSubmit={handleSubmit((data) => console.log(data))}
-                >
+                <form id="signup" onSubmit={handleSubmit(submitSignUp)}>
                     <Card>
                         <CardHeader className="space-y-1">
                             <CardTitle className="text-2xl text-center">
@@ -75,6 +94,7 @@ export default function Signup() {
                                     id="email"
                                     type="email"
                                     placeholder=""
+                                    autoComplete="email"
                                     {...register('email')}
                                 />
                                 {errors.email && (
@@ -102,6 +122,7 @@ export default function Signup() {
                                 <Input
                                     id="password"
                                     type="password"
+                                    autoComplete="new-password"
                                     {...register('password')}
                                 />
                                 {errors.password && (
@@ -117,6 +138,7 @@ export default function Signup() {
                                 <Input
                                     id="confirmPassword"
                                     type="password"
+                                    autoComplete="new-password"
                                     {...register('confirmPassword')}
                                 />
                                 {errors.confirmPassword && (
