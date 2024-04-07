@@ -17,7 +17,6 @@ const apiService = {
     },
 
     post: async function (url: string, data: any): Promise<any> {
-        console.log('post', url, data)
         return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
                 method: 'POST',
