@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/components/ui/use-toast'
-import apiService from '../services/apiService'
+import apiService from '@/app/services/apiService'
 
 const registerUserSchema = z
     .object({
