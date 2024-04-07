@@ -26,3 +26,14 @@ export async function handleLogin(
         path: '/'
     })
 }
+
+export async function resetAuthCookies() {
+    cookies().set('session_user_id', '')
+    cookies().set('session_access_token', '')
+    cookies().set('session_refresh_token', '')
+}
+
+export async function getUserId() {
+    const userId = cookies().get('session_user_id')?.value
+    return userId ? userId : null
+}
