@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
@@ -14,9 +15,12 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { ToastAction } from '@/components/ui/toast'
+import { useToast } from '@/components/ui/use-toast'
+import apiService from '@/app/services/apiService'
+import { handleLogin } from '@/app/lib/actions'
 
 const loginSchema = z.object({
     username: z.string().trim().min(1, {
@@ -28,6 +32,27 @@ const loginSchema = z.object({
 type FormData = z.infer<typeof loginSchema>
 
 export default function LoginAccount() {
+    const { toast } = useToast()
+    const router = useRouter()
+
+    const toastError = (description: string) => {
+        toast({
+            variant: 'destructive',
+            description: description,
+            title: 'Erro'
+        })
+    }
+
+    const submitLogin = async (data: FormData) => {
+        const response = await apiService.post('/token/', data)
+        if (response.access && response.refresh) {
+            handleLogin(data.username, response.access, response.refresh)
+            router.push('/')
+        } else {
+            toastError('Nome de usuário ou senha inválido')
+        }
+    }
+
     const {
         handleSubmit,
         register,
@@ -40,10 +65,7 @@ export default function LoginAccount() {
     return (
         <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
             <div className="w-full m-auto lg:max-w-lg">
-                <form
-                    id="login"
-                    onSubmit={handleSubmit((data) => console.log(data))}
-                >
+                <form id="login" onSubmit={handleSubmit(submitLogin)}>
                     <Card>
                         <CardHeader className="space-y-1">
                             <CardTitle className="text-2xl text-center">
@@ -82,15 +104,6 @@ export default function LoginAccount() {
                                         {errors.password?.message}
                                     </p>
                                 )}
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="terms" />
-                                <label
-                                    htmlFor="terms"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                    Manter conectado
-                                </label>
                             </div>
                         </CardContent>
                         <CardFooter className="flex flex-col">
