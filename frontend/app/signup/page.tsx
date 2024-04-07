@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
@@ -17,6 +17,8 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { ToastAction } from '@/components/ui/toast'
+import { useToast } from '@/components/ui/use-toast'
 import apiService from '../services/apiService'
 
 const registerUserSchema = z
@@ -45,10 +47,16 @@ const registerUserSchema = z
 type FormData = z.infer<typeof registerUserSchema>
 
 export default function SignUp() {
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [apiErrors, setApiErrors] = useState<string[]>([])
+    const { toast } = useToast()
+    const router = useRouter()
+
+    const toastError = (description: string) => {
+        toast({
+            variant: 'destructive',
+            description: description,
+            title: 'Erro'
+        })
+    }
 
     const submitSignUp = async (data: FormData) => {
         const apiData = {
@@ -57,11 +65,23 @@ export default function SignUp() {
             password: data.password
         }
         const response = await apiService.post('/users/', apiData)
-
-        if (response.errors) {
-            setApiErrors(response.errors)
+        if (response.id) {
+            toast({
+                description:
+                    'Conta criada com sucesso! Você pode fazer o login e completar o seu perfil...',
+                title: 'Sucesso',
+                action: (
+                    <ToastAction altText="Ir para o login">
+                        <Button onClick={() => router.push('/login')}>
+                            Ir para o login
+                        </Button>
+                    </ToastAction>
+                )
+            })
         } else {
-            console.log(response)
+            if (!response.id && response.username) {
+                toastError('Nome de usuário em uso')
+            }
         }
     }
 
@@ -160,7 +180,6 @@ export default function SignUp() {
                                 Serviço e a Política de Privacidade, incluindo o
                                 Uso de Cookies.
                             </p>
-
                             <p className="text-center  mt-8 mb-4">
                                 Já possui uma conta?
                             </p>
