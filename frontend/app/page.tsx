@@ -1,5 +1,5 @@
 import LogoutButton from '@/components/logout-button'
-import { getUserId } from '@/app/lib/actions'
+import { getUserId } from '@/lib/actions'
 
 const Home = async () => {
     const userId = await getUserId()

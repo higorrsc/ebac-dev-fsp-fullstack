@@ -17,10 +17,9 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/components/ui/use-toast'
 import apiService from '@/app/services/apiService'
-import { handleLogin } from '@/app/lib/actions'
+import { handleLogin } from '@/lib/actions'
 
 const loginSchema = z.object({
     username: z.string().trim().min(1, {
@@ -45,6 +44,12 @@ export default function LoginAccount() {
 
     const submitLogin = async (data: FormData) => {
         const response = await apiService.post('/token/', data)
+        const errors = response.errors
+
+        if (errors) {
+            toastError(errors.join(', '))
+            return
+        }
         if (response.access && response.refresh) {
             handleLogin(data.username, response.access, response.refresh)
             router.push('/')
