@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
-import { ToggleTheme } from '@/components/toggle-theme'
+import Navbar from '@/components/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,9 +27,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <div className="flex justify-end">
-                        <ToggleTheme />
-                    </div>
+                    <Navbar />
                     {children}
                     <Toaster />
                 </ThemeProvider>
