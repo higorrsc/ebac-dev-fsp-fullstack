@@ -46,6 +46,7 @@ export default function Navbar() {
     const submitLogout = async () => {
         await resetAuthCookies()
         router.push('/')
+        router.refresh()
     }
 
     return (
@@ -95,9 +96,10 @@ export default function Navbar() {
                                 <NavigationMenuTrigger>
                                     <Image
                                         src={
-                                            userId
-                                                ? defaultUser
-                                                : 'http://higorrsc.pythonanywhere.com/media/profile_image/the-last-of-us-part-ii-key-art-wallpaper-iphone-x-image-block-01-ps4-us-04oct19.jpg'
+                                            defaultUser
+                                            // userId
+                                            //     ? defaultUser
+                                            //     : 'http://higorrsc.pythonanywhere.com/media/profile_image/the-last-of-us-part-ii-key-art-wallpaper-iphone-x-image-block-01-ps4-us-04oct19.jpg'
                                         }
                                         className="mr-3"
                                         width={40}
