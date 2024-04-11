@@ -8,7 +8,6 @@ import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 import { Menu } from 'lucide-react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -86,9 +85,25 @@ export default function Navbar() {
                                     </Link>
                                 </NavigationMenuItem>
                             ))}
+                        </NavigationMenuList>
+                    </NavigationMenu>
+                </div>
+                <div className="hidden  lg:flex">
+                    <NavigationMenu>
+                        <NavigationMenuList>
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger>
-                                    Usuário
+                                    <Image
+                                        src={
+                                            userId
+                                                ? defaultUser
+                                                : 'http://higorrsc.pythonanywhere.com/media/profile_image/the-last-of-us-part-ii-key-art-wallpaper-iphone-x-image-block-01-ps4-us-04oct19.jpg'
+                                        }
+                                        className="mr-3"
+                                        width={40}
+                                        height={40}
+                                        alt="Usuário"
+                                    />
                                 </NavigationMenuTrigger>
                                 {userId ? (
                                     <NavigationMenuContent>
@@ -116,7 +131,6 @@ export default function Navbar() {
                                                 Login
                                             </NavigationMenuLink>
                                         </Link>
-
                                         <Link href="/signup">
                                             <NavigationMenuLink
                                                 className={navigationMenuTriggerStyle()}
@@ -129,17 +143,6 @@ export default function Navbar() {
                             </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>
-                </div>
-                <div className="hidden  lg:flex">
-                    <div>
-                        <Link href={userId ? '/profile' : '/login'}>
-                            <Image
-                                src={defaultUser}
-                                className="w-10 h-10 mr-3"
-                                alt="Usuário"
-                            />
-                        </Link>
-                    </div>
                     <ToggleTheme />
                 </div>
             </div>
