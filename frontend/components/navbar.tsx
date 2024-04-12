@@ -50,7 +50,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="w-full border-b md:border-0">
+        <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
                 <div className="flex items-center justify-between py-3 md:py-5 md:block">
                     <Image src={logo} width={50} height={50} alt={'logo'} />
