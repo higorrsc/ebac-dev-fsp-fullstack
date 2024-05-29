@@ -95,7 +95,7 @@ export default function SignUp() {
   })
 
   return (
-    <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
+    <div className="relative flex flex-col items-center min-h-screen overflow-hidden">
       <div className="w-full m-auto lg:max-w-lg">
         <form id="signup" onSubmit={handleSubmit(submitSignUp)}>
           <Card>
