@@ -11,12 +11,10 @@ import { Menu } from 'lucide-react'
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
 import { ToggleTheme } from '@/components/toggle-theme'
@@ -89,7 +87,7 @@ export default function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="hidden  lg:flex">
+        <div className="hidden lg:flex">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
