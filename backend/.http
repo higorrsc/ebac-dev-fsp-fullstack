@@ -47,10 +47,10 @@ Authorization: Bearer {{authToken}}
 @profileId = {{profile.response.body.id}}
 
 ###
-GET  {{profileUrl}}/ HTTP/1.1
+GET {{profileUrl}}/ HTTP/1.1
 
 ###
-PUT   {{profileUrl}}/{{profileId}}/
+PUT {{profileUrl}}/{{profileId}}/
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
