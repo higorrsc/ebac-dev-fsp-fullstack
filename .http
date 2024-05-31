@@ -1,0 +1,62 @@
+### Global variables
+@baseUrl = http://localhost:8000/api
+@tokenUrl = {{baseUrl}}/token/
+@refreshTokenUrl = {{baseUrl}}/token/refresh
+@usersUrl = {{baseUrl}}/users
+@profileUrl = {{baseUrl}}/profiles
+@postsUrl = {{baseUrl}}/posts
+@commentsUrl = {{baseUrl}}/comments
+@votesUrl = {{baseUrl}}/votes
+@friendshipUrl = {{baseUrl}}/friendship
+
+### Authentication
+# @name login
+POST {{tokenUrl}} HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "",
+  "password": ""
+}
+
+# get auth token from response body
+@authToken = {{login.response.body.access}}
+
+###
+# @name profile
+POST {{profileUrl}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "first_name": "Higor",
+    "last_name": "Cruz",
+    "gender": "male",
+    "dob": "1983-06-06",
+    "phone": "+5527992054791",
+    "works_at": "Norte Energia SA",
+    "lives_in": "Águas Claras, DF",
+    "studies_at": "EBAC",
+    "profile_image": null
+}
+
+# get profile id from response body
+@profileId = {{profile.response.body.id}}
+
+###
+GET  {{profileUrl}} HTTP/1.1
+
+###
+PUT   {{profileUrl}}/{{profileId}}/
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "lives_in": "Sul (Águas Claras), DF"
+}
+
+###
+DELETE {{profileUrl}}/{{profileId}}/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
