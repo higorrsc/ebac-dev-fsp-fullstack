@@ -19,11 +19,6 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("logout/blacklist/", BlacklistTokenUpdateView.as_view(), name="blacklist"),
     path("logout/", UserLogout.as_view(), name="logout"),
-    path(
-        "profiles/<str:username>/",
-        ProfileViewSet.as_view({"get": "retrieve"}),
-        name="profile",
-    ),
 ]
 
 router = DefaultRouter()
