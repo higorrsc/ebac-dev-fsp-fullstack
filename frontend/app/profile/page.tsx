@@ -1,8 +1,9 @@
-'use server'
+'use client'
 
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
-import defaultUser from '@/images/profile/default-user.png'
+import defaultProfilePicture from '@/images/profile/default-user.png'
 import apiService from '@/app/services/apiService'
 import { getUserId } from '@/lib/actions'
 import {
@@ -24,10 +25,41 @@ import {
   SelectValue
 } from '@/components/ui/select'
 
-export default async function Profile() {
-  const { profile_data: userProfileData } = await apiService.get(
-    `/users/${await getUserId()}/`
+export interface UserData {
+  id: number
+  username: string
+  is_active: boolean
+  profile_data: ProfileData | null
+}
+
+export interface ProfileData {
+  id: number
+  owner: string
+  first_name: string
+  last_name: string
+  gender: string
+  dob: Date
+  phone: string
+  works_at: string
+  lives_in: string
+  studies_at: string
+  profile_image: string
+}
+
+export default function Profile() {
+  const [userProfileData, setUserProfileData] = useState<ProfileData | null>(
+    null
   )
+
+  useEffect(() => {
+    ;(async () => {
+      const userId = await getUserId()
+      const { profile_data: profileData } = await apiService.get(
+        `/users/${userId}/`
+      )
+      setUserProfileData(profileData)
+    })()
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center p-10">
@@ -38,7 +70,7 @@ export default async function Profile() {
         </CardHeader>
         <CardContent className="flex items-center text-sm overflow-hidden">
           <Image
-            src={userProfileData.profile_image || defaultUser}
+            src={userProfileData?.profile_image || defaultProfilePicture}
             width={100}
             height={10}
             alt="imagem usuário"
@@ -46,7 +78,7 @@ export default async function Profile() {
           />
           <div className="ml-10">
             <h1 className="text-3xl font-bold">
-              {userProfileData.first_name} {userProfileData.last_name}
+              {userProfileData?.first_name} {userProfileData?.last_name}
             </h1>
           </div>
         </CardContent>
@@ -75,7 +107,7 @@ export default async function Profile() {
           <Input
             id="dob"
             type="date"
-            value={userProfileData.dob}
+            value={userProfileData?.dob}
             readOnly
             className="rounded-xl"
           />
@@ -84,7 +116,7 @@ export default async function Profile() {
           <Input
             id="phone"
             type="phone"
-            value={userProfileData.phone}
+            value={userProfileData?.phone}
             readOnly
             className="rounded-xl"
           />
@@ -93,7 +125,7 @@ export default async function Profile() {
           <Input
             id="works_at"
             type="text"
-            value={userProfileData.works_at}
+            value={userProfileData?.works_at}
             readOnly
             className="rounded-xl"
           />
@@ -102,7 +134,7 @@ export default async function Profile() {
           <Input
             id="lives_in"
             type="text"
-            value={userProfileData.lives_in}
+            value={userProfileData?.lives_in}
             readOnly
             className="rounded-xl"
           />
@@ -111,7 +143,7 @@ export default async function Profile() {
           <Input
             id="studies_at"
             type="text"
-            value={userProfileData.studies_at}
+            value={userProfileData?.studies_at}
             readOnly
             className="rounded-xl"
           />
