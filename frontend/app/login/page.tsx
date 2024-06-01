@@ -89,22 +89,26 @@ export default function LoginAccount() {
             className='bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 flex flex-col gap-8 text-black'
           >
             <h1 className="text-6xl font-bold">Social H</h1>
+            <h2 className="text-3xl font-bold">Bem vindo de volta!</h2>
             <p className="text-sm">
-              Estamos felizes em apresentar a você uma nova rede social que está
-              sendo desenvolvida com o objetivo de conectar pessoas com
-              interesses em comum, compartilhar experiências, promover debates e
-              compartilhar conhecimento.
+              Estamos felizes em tê-lo de volta à nossa comunidade. Entre em sua
+              conta para continuar conectado com seus amigos, familiares e
+              interesses.
             </p>
-            <p className="text-xs">O que você pode esperar da Social H?</p>
+            <p className="text-xs">Faça login para:</p>
             <ul className="list-disc list-inside text-xs">
-              <li>Um ambiente acolhedor e inclusivo</li>
-              <li>Ferramentas para facilitar a conexão</li>
-              <li>Conteúdos de qualidade</li>
-              <li>Oportunidade para se expressar</li>
-              <li>Um espaço para fazer a diferença</li>
+              <li>Compartilhar seus pensamentos e ideias.</li>
+              <li>Acompanhar as últimas notícias e tendências.</li>
+              <li>Conectar-se com amigos e familiares.</li>
+              <li>Descobrir novos conteúdos e inspirações.</li>
+              <li>Participar de grupos e comunidades.</li>
+              <li>Fazer a diferença no mundo.</li>
             </ul>
-
-            <span className="text-xs">Não tem uma conta?</span>
+            <p className="text-xs">Ainda não tem uma conta?</p>
+            <span className="text-xs">
+              Cadastre-se agora mesmo e junte-se à nossa comunidade! É fácil e
+              rápido.
+            </span>
             <Link
               href="/signup"
               className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
