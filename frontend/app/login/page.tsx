@@ -134,7 +134,9 @@ export default function LoginAccount() {
                 {...register('username')}
               />
               {errors.username && (
-                <p className="text-red-500">{errors.username?.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.username?.message}
+                </p>
               )}
               <input
                 type="password"
@@ -144,7 +146,9 @@ export default function LoginAccount() {
                 {...register('password')}
               />
               {errors.password && (
-                <p className="text-red-500">{errors.password?.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.password?.message}
+                </p>
               )}
               <button
                 className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
