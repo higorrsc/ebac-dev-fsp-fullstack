@@ -2,15 +2,14 @@
 
 import Link from 'next/link'
 import * as z from 'zod'
-import { getCookie } from 'cookies-next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useToast } from '@/components/ui/use-toast'
 import apiService from '@/app/services/apiService'
-import { handleLogin } from '@/lib/actions'
+import { getUserId, handleLogin } from '@/lib/actions'
 
 const loginSchema = z.object({
   username: z.string().trim().min(1, {
@@ -25,9 +24,16 @@ export default function LoginAccount() {
   const { toast } = useToast()
   const router = useRouter()
 
-  const userLoggedIn = getCookie('session_access_token')
+  const [userId, setUserId] = useState<string | null>('')
   useEffect(() => {
-    if (!userLoggedIn) {
+    ;(async () => {
+      const gUserId = await getUserId()
+      setUserId(gUserId)
+    })()
+  })
+
+  useEffect(() => {
+    if (userId) {
       router.push('/')
     }
   })
