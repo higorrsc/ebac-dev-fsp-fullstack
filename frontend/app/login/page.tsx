@@ -82,7 +82,7 @@ export default function LoginAccount() {
       <div className="h-screen flex items-center justify-center">
         <div
           id="card"
-          className="w-full min-h-[600px] grid grid-cols-1 md:grid-cols-2  bg-slate-300 rounded-2xl"
+          className="w-full min-h-[600px] grid grid-cols-1 md:grid-cols-2 bg-slate-300 rounded-2xl overflow-hidden"
         >
           <div
             id="left"
