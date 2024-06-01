@@ -2,21 +2,12 @@
 
 import Link from 'next/link'
 import * as z from 'zod'
+import { getCookie } from 'cookies-next'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
 import apiService from '@/app/services/apiService'
 import { handleLogin } from '@/lib/actions'
@@ -34,6 +25,13 @@ export default function LoginAccount() {
   const { toast } = useToast()
   const router = useRouter()
 
+  const userLoggedIn = getCookie('session_access_token')
+  useEffect(() => {
+    if (!userLoggedIn) {
+      router.push('/')
+    }
+  })
+
   const toastError = (description: string) => {
     toast({
       variant: 'destructive',
@@ -50,6 +48,7 @@ export default function LoginAccount() {
       toastError(errors.join(', '))
       return
     }
+
     if (response.access && response.refresh) {
       handleLogin(
         response.user_id,
@@ -73,60 +72,79 @@ export default function LoginAccount() {
   })
 
   return (
-    <div className="relative flex flex-col items-center min-h-screen overflow-hidden">
-      <div className="w-full m-auto lg:max-w-lg">
-        <form id="login" onSubmit={handleSubmit(submitLogin)}>
-          <Card>
-            <CardHeader className="space-y-1">
-              <CardTitle className="text-2xl text-center">Login</CardTitle>
-              <CardDescription className="text-center">
-                Informe seu usuário e sua senha
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="username">Usuário</Label>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder=""
-                  autoComplete="username"
-                  {...register('username')}
-                />
-                {errors.username && (
-                  <p className="text-red-500">{errors.username?.message}</p>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Senha</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  autoComplete="current-password"
-                  {...register('password')}
-                />
-                {errors.password && (
-                  <p className="text-red-500">{errors.password?.message}</p>
-                )}
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col">
-              <Button
-                className="w-full border rounded bg-slate-700"
+    <div className="container m-auto">
+      <div className="h-screen flex items-center justify-center">
+        <div
+          id="card"
+          className="w-full min-h-[600px] grid grid-cols-1 md:grid-cols-2  bg-slate-300 rounded-2xl"
+        >
+          <div
+            id="left"
+            className='bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 flex flex-col gap-8 text-black'
+          >
+            <h1 className="text-6xl font-bold">Social H</h1>
+            <p className="text-sm">
+              Estamos felizes em apresentar a você uma nova rede social que está
+              sendo desenvolvida com o objetivo de conectar pessoas com
+              interesses em comum, compartilhar experiências, promover debates e
+              compartilhar conhecimento.
+            </p>
+            <p className="text-xs">O que você pode esperar da Social H?</p>
+            <ul className="list-disc list-inside text-xs">
+              <li>Um ambiente acolhedor e inclusivo</li>
+              <li>Ferramentas para facilitar a conexão</li>
+              <li>Conteúdos de qualidade</li>
+              <li>Oportunidade para se expressar</li>
+              <li>Um espaço para fazer a diferença</li>
+            </ul>
+
+            <span className="text-xs">Não tem uma conta?</span>
+            <Link
+              href="/signup"
+              className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
+            >
+              Criar conta
+            </Link>
+          </div>
+          <div
+            id="right"
+            className="p-12 flex justify-center flex-col text-black"
+          >
+            <h1 className="text-2xl font-bold text-gray-700 pb-10">Login</h1>
+            <form
+              id="login"
+              className="flex flex-col gap-4"
+              onSubmit={handleSubmit(submitLogin)}
+            >
+              <input
+                type="text"
+                id="username"
+                placeholder="Nome de usuário"
+                className="border-b-2 outline-none bg-transparent p-2"
+                {...register('username')}
+              />
+              {errors.username && (
+                <p className="text-red-500">{errors.username?.message}</p>
+              )}
+              <input
+                type="password"
+                id="password"
+                placeholder="Senha"
+                className="border-b-2 outline-none bg-transparent p-2"
+                {...register('password')}
+              />
+              {errors.password && (
+                <p className="text-red-500">{errors.password?.message}</p>
+              )}
+              <button
+                className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
                 type="submit"
               >
                 Login
-              </Button>
-              <p className="mt-2 text-xs text-center text-gray-700">
-                {' '}
-                Não tem uma conta?{' '}
-                <span className=" text-blue-600 hover:underline">
-                  <Link href={'/signup'}>Cadastre-se</Link>
-                </span>
-              </p>
-            </CardFooter>
-          </Card>
-        </form>
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   )
