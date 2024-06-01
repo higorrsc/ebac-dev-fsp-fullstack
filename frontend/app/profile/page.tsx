@@ -25,8 +25,9 @@ import {
 } from '@/components/ui/select'
 
 export default async function Profile() {
-  const userName = await getUserId()
-  const userData = await apiService.get(`/profiles/${userName}/`)
+  const { profile_data: userProfileData } = await apiService.get(
+    `/users/${await getUserId()}/`
+  )
 
   return (
     <main className="flex min-h-screen flex-col items-center p-10">
@@ -37,7 +38,7 @@ export default async function Profile() {
         </CardHeader>
         <CardContent className="flex items-center text-sm overflow-hidden">
           <Image
-            src={userData.profile_image ? userData.profile_image : defaultUser}
+            src={userProfileData.profile_image || defaultUser}
             width={100}
             height={10}
             alt="imagem usuário"
@@ -45,7 +46,7 @@ export default async function Profile() {
           />
           <div className="ml-10">
             <h1 className="text-3xl font-bold">
-              {userData.first_name} {userData.last_name}
+              {userProfileData.first_name} {userProfileData.last_name}
             </h1>
           </div>
         </CardContent>
@@ -74,7 +75,7 @@ export default async function Profile() {
           <Input
             id="dob"
             type="date"
-            value={userData.dob}
+            value={userProfileData.dob}
             readOnly
             className="rounded-xl"
           />
@@ -83,7 +84,7 @@ export default async function Profile() {
           <Input
             id="phone"
             type="phone"
-            value={userData.phone}
+            value={userProfileData.phone}
             readOnly
             className="rounded-xl"
           />
@@ -92,7 +93,7 @@ export default async function Profile() {
           <Input
             id="works_at"
             type="text"
-            value={userData.works_at}
+            value={userProfileData.works_at}
             readOnly
             className="rounded-xl"
           />
@@ -101,7 +102,7 @@ export default async function Profile() {
           <Input
             id="lives_in"
             type="text"
-            value={userData.lives_in}
+            value={userProfileData.lives_in}
             readOnly
             className="rounded-xl"
           />
@@ -110,7 +111,7 @@ export default async function Profile() {
           <Input
             id="studies_at"
             type="text"
-            value={userData.studies_at}
+            value={userProfileData.studies_at}
             readOnly
             className="rounded-xl"
           />
