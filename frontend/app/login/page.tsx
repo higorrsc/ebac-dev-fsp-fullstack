@@ -51,7 +51,12 @@ export default function LoginAccount() {
       return
     }
     if (response.access && response.refresh) {
-      handleLogin(data.username, response.access, response.refresh)
+      handleLogin(
+        response.user_id,
+        response.username,
+        response.access,
+        response.refresh
+      )
       router.push('/')
     } else {
       toastError('Nome de usuário ou senha inválido(a)')
