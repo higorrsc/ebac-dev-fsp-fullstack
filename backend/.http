@@ -9,6 +9,10 @@
 @votesUrl = {{baseUrl}}/votes
 @friendshipUrl = {{baseUrl}}/friendship
 
+
+###
+GET {{usersUrl}}/ HTTP/1.1
+
 ### Authentication
 # @name login
 POST {{tokenUrl}}/ HTTP/1.1
