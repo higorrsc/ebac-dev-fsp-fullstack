@@ -4,22 +4,12 @@ import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import {
-  Home,
-  Moon,
-  Sun,
-  LayoutGrid,
-  Bell,
-  Mail,
-  User,
-  Search
-} from 'lucide-react'
+import { Home, LayoutGrid, Bell, Mail, User, Search } from 'lucide-react'
 
+import { ToggleTheme } from '@/components/toggle-theme'
 import defaultUserImage from '@/images/profile/default-user.png'
 
 export default function Navbar() {
-  const { setTheme } = useTheme()
-
   return (
     <nav className="flex items-center justify-between px-2 py-4 h-14 border-b-2 border-b-slate-500 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div id="left" className="flex items-center gap-8">
@@ -27,8 +17,7 @@ export default function Navbar() {
           <span className="font-bold text-xl text-slate-300">Social H</span>
         </Link>
         <Home />
-        <Moon onClick={() => setTheme('dark')} className="cursor-pointer" />
-        <Sun onClick={() => setTheme('light')} className="cursor-pointer" />
+        <ToggleTheme />
         <LayoutGrid />
         <div
           id="search"
