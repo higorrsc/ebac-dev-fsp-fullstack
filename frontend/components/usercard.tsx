@@ -31,7 +31,7 @@ export const UserCard: React.FC<UserCardProps> = ({
           height={32}
           className="rounded-full object-cover"
         />
-        <span className="font-medium text-black">{username}</span>
+        <span className="font-medium">{username}</span>
         {activity && <span>{activity}</span>}
       </div>
       {time && (
