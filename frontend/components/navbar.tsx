@@ -8,13 +8,16 @@ import { Home, LayoutGrid, Bell, Mail, User, Search } from 'lucide-react'
 
 import { ToggleTheme } from '@/components/toggle-theme'
 import defaultUserImage from '@/images/profile/default-user.png'
+import { UserCard } from './usercard'
 
 export default function Navbar() {
   return (
     <nav className="flex items-center justify-between px-2 py-4 h-14 border-b-2 border-b-slate-500 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div id="left" className="flex items-center gap-8">
         <Link href="/">
-          <span className="font-bold text-xl text-slate-300">Social H</span>
+          <span className="font-bold text-xl dark:text-slate-300 text-slate-700">
+            Social H
+          </span>
         </Link>
         <Home />
         <ToggleTheme />
@@ -27,7 +30,7 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Pesquisar..."
-            className="border-none w-80 md:w-40"
+            className="border-none w-80 md:w-40 bg-transparent"
           />
         </div>
       </div>
@@ -35,16 +38,11 @@ export default function Navbar() {
         <User />
         <Mail />
         <Bell />
-        <div id="user" className="flex items-center gap-2 font-medium">
-          <Image
-            src={defaultUserImage}
-            alt="imagem do usuário"
-            className="rounded-full object-cover"
-            width={32}
-            height={32}
-          />
-          <span>Usuário logado</span>
-        </div>
+        <UserCard
+          image={defaultUserImage}
+          alt="imagem do usuário"
+          username="Usuário logado"
+        />
       </div>
     </nav>
   )
