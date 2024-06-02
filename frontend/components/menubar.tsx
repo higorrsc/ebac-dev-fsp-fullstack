@@ -18,7 +18,7 @@ import { MenuItem } from '@/components/menuitem'
 
 export default function MenuBar() {
   return (
-    <div className="flex flex-col gap-2 p-4 text-xs sticky top-14 h-[calc(100vh-56px)] overflow-auto no-scrollbar">
+    <div className="no-scrollbar sticky top-14 flex h-[calc(100vh-56px)] flex-col gap-2 overflow-auto p-4 text-xs">
       <MenuItem
         alt="imagem do usuário"
         icon={defaultUserImage}
@@ -56,8 +56,8 @@ export default function MenuBar() {
         href="#"
       />
 
-      <hr className="border-none my-2 mx-0 h-[0.5px] bg-slate-500" />
-      <span className="font-semibold text-xs">Atalhos</span>
+      <hr className="mx-0 my-2 h-[0.5px] border-none bg-slate-500" />
+      <span className="text-xs font-semibold">Atalhos</span>
 
       <MenuItem
         icon={iconCalendar}
@@ -85,8 +85,8 @@ export default function MenuBar() {
         href="#"
       />
 
-      <hr className="border-none my-2 mx-0 h-[0.5px] bg-slate-500" />
-      <span className="font-semibold text-xs">Outros</span>
+      <hr className="mx-0 my-2 h-[0.5px] border-none bg-slate-500" />
+      <span className="text-xs font-semibold">Outros</span>
 
       <MenuItem
         icon={iconFundraiser}

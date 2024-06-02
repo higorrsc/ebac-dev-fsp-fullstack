@@ -8,10 +8,10 @@ import { UserCard } from '@/components/usercard'
 
 export default function sidebar() {
   return (
-    <div className="flex flex-col gap-2 p-4 text-xs sticky top-14 h-[calc(100vh-56px)] overflow-auto no-scrollbar">
+    <div className="no-scrollbar sticky top-14 flex h-[calc(100vh-56px)] flex-col gap-2 overflow-auto p-4 text-xs">
       <div
         id="suggestions"
-        className="dark:bg-gray-700 bg-gray-300 rounded-xl p-2 shadow-md gap-2"
+        className="gap-2 rounded-xl bg-gray-300 p-2 shadow-md dark:bg-gray-700"
       >
         <p className="pb-2">Sugestões para você</p>
         <UserCard
@@ -23,7 +23,7 @@ export default function sidebar() {
       </div>
       <div
         id="activities"
-        className="dark:bg-gray-700 bg-gray-300 rounded-xl p-2 shadow-md"
+        className="rounded-xl bg-gray-300 p-2 shadow-md dark:bg-gray-700"
       >
         <p className="pb-2">Últimas atividades</p>
         <UserCard
@@ -35,7 +35,7 @@ export default function sidebar() {
       </div>
       <div
         id="online"
-        className="dark:bg-gray-700 bg-gray-300 rounded-xl p-2 shadow-md"
+        className="rounded-xl bg-gray-300 p-2 shadow-md dark:bg-gray-700"
       >
         <p className="pb-2">Amigos online</p>
         <UserCard

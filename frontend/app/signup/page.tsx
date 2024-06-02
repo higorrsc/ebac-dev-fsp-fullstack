@@ -102,16 +102,16 @@ export default function SignUp() {
 
   return (
     <div className="container m-auto">
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <div
           id="card"
-          className="w-full min-h-[600px] grid grid-cols-1 md:grid-cols-2 bg-slate-300 rounded-2xl overflow-hidden"
+          className="grid min-h-[600px] w-full grid-cols-1 overflow-hidden rounded-2xl bg-slate-300 md:grid-cols-2"
         >
           <div
             id="left"
-            className="p-12 flex justify-center flex-col text-black"
+            className="flex flex-col justify-center p-12 text-black"
           >
-            <h1 className="text-2xl font-bold text-gray-700 pb-10">
+            <h1 className="pb-10 text-2xl font-bold text-gray-700">
               Registre-se
             </h1>
             <form
@@ -123,21 +123,21 @@ export default function SignUp() {
                 type="email"
                 id="email"
                 placeholder="E-mail"
-                className="border-b-2 outline-none bg-transparent p-2 w-full"
+                className="w-full border-b-2 bg-transparent p-2 outline-none"
                 {...register('email')}
               />
               {errors.email && (
-                <p className="text-red-500 text-xs">{errors.email?.message}</p>
+                <p className="text-xs text-red-500">{errors.email?.message}</p>
               )}
               <input
                 type="text"
                 id="username"
                 placeholder="Nome de usuário"
-                className="border-b-2 outline-none bg-transparent p-2 w-full"
+                className="w-full border-b-2 bg-transparent p-2 outline-none"
                 {...register('username')}
               />
               {errors.username && (
-                <p className="text-red-500 text-xs">
+                <p className="text-xs text-red-500">
                   {errors.username?.message}
                 </p>
               )}
@@ -147,11 +147,11 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     placeholder="Senha"
-                    className="border-b-2 outline-none bg-transparent p-2 w-full"
+                    className="w-full border-b-2 bg-transparent p-2 outline-none"
                     {...register('password')}
                   />
                   {errors.password && (
-                    <p className="text-red-500 text-xs">
+                    <p className="text-xs text-red-500">
                       {errors.password?.message}
                     </p>
                   )}
@@ -161,18 +161,18 @@ export default function SignUp() {
                     type="password"
                     id="confirmPassword"
                     placeholder="Confirmar a senha"
-                    className="border-b-2 outline-none bg-transparent p-2 w-full"
+                    className="w-full border-b-2 bg-transparent p-2 outline-none"
                     {...register('confirmPassword')}
                   />
                   {errors.confirmPassword && (
-                    <p className="text-red-500 text-xs">
+                    <p className="text-xs text-red-500">
                       {errors.confirmPassword?.message}
                     </p>
                   )}
                 </div>
               </div>
               <button
-                className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
+                className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
                 type="submit"
               >
                 Registrar
@@ -181,7 +181,7 @@ export default function SignUp() {
           </div>
           <div
             id="right"
-            className='bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 flex flex-col gap-8 text-black'
+            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 text-black'
           >
             <h1 className="text-6xl font-bold">Social H</h1>
             <p className="text-sm">
@@ -191,7 +191,7 @@ export default function SignUp() {
               compartilhar conhecimento.
             </p>
             <p className="text-xs">O que você pode esperar da Social H?</p>
-            <ul className="list-disc list-inside text-xs">
+            <ul className="list-inside list-disc text-xs">
               <li>Um ambiente acolhedor e inclusivo</li>
               <li>Ferramentas para facilitar a conexão</li>
               <li>Conteúdos de qualidade</li>
@@ -201,7 +201,7 @@ export default function SignUp() {
             <span className="text-xs">Já tem uma conta?</span>
             <Link
               href="/login"
-              className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
+              className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
             >
               Fazer login
             </Link>

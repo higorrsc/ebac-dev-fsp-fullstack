@@ -22,7 +22,7 @@ export const UserCard: React.FC<UserCardProps> = ({
   online
 }) => {
   return (
-    <div className="flex items-center justify-between relative ">
+    <div className="relative flex items-center justify-between">
       <div className="flex items-center gap-2">
         <Image
           src={Icon}
@@ -40,12 +40,12 @@ export const UserCard: React.FC<UserCardProps> = ({
         </div>
       )}
       {follow && (
-        <Button className="rounded-xl h-6 w-16 text-xs bg-blue-600 hover:bg-blue-900">
+        <Button className="h-6 w-16 rounded-xl bg-blue-600 text-xs hover:bg-blue-900">
           Seguir
         </Button>
       )}
       {online && (
-        <div className="rounded-full h-2 w-2 top-0 left-6 bg-green-500 absolute"></div>
+        <div className="absolute left-6 top-0 h-2 w-2 rounded-full bg-green-500"></div>
       )}
     </div>
   )

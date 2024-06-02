@@ -79,14 +79,14 @@ export default function LoginAccount() {
 
   return (
     <div className="container m-auto">
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <div
           id="card"
-          className="w-full min-h-[600px] grid grid-cols-1 md:grid-cols-2 bg-slate-300 rounded-2xl overflow-hidden"
+          className="grid min-h-[600px] w-full grid-cols-1 overflow-hidden rounded-2xl bg-slate-300 md:grid-cols-2"
         >
           <div
             id="left"
-            className='bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 flex flex-col gap-8 text-black'
+            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 text-black'
           >
             <h1 className="text-6xl font-bold">Social H</h1>
             <h2 className="text-3xl font-bold">Bem vindo de volta!</h2>
@@ -96,7 +96,7 @@ export default function LoginAccount() {
               interesses.
             </p>
             <p className="text-xs">Faça login para:</p>
-            <ul className="list-disc list-inside text-xs">
+            <ul className="list-inside list-disc text-xs">
               <li>Compartilhar seus pensamentos e ideias.</li>
               <li>Acompanhar as últimas notícias e tendências.</li>
               <li>Conectar-se com amigos e familiares.</li>
@@ -111,16 +111,16 @@ export default function LoginAccount() {
             </span>
             <Link
               href="/signup"
-              className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
+              className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
             >
               Criar conta
             </Link>
           </div>
           <div
             id="right"
-            className="p-12 flex justify-center flex-col text-black"
+            className="flex flex-col justify-center p-12 text-black"
           >
-            <h1 className="text-2xl font-bold text-gray-700 pb-10">Login</h1>
+            <h1 className="pb-10 text-2xl font-bold text-gray-700">Login</h1>
             <form
               id="login"
               className="flex flex-col gap-4"
@@ -130,11 +130,11 @@ export default function LoginAccount() {
                 type="text"
                 id="username"
                 placeholder="Nome de usuário"
-                className="border-b-2 outline-none bg-transparent p-2"
+                className="border-b-2 bg-transparent p-2 outline-none"
                 {...register('username')}
               />
               {errors.username && (
-                <p className="text-red-500 text-xs">
+                <p className="text-xs text-red-500">
                   {errors.username?.message}
                 </p>
               )}
@@ -142,16 +142,16 @@ export default function LoginAccount() {
                 type="password"
                 id="password"
                 placeholder="Senha"
-                className="border-b-2 outline-none bg-transparent p-2"
+                className="border-b-2 bg-transparent p-2 outline-none"
                 {...register('password')}
               />
               {errors.password && (
-                <p className="text-red-500 text-xs">
+                <p className="text-xs text-red-500">
                   {errors.password?.message}
                 </p>
               )}
               <button
-                className="w-[50%] text-center border-2 bg-white border-black rounded-2xl p-2 text-sm"
+                className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
                 type="submit"
               >
                 Login

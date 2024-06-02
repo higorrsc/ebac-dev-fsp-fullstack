@@ -18,7 +18,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 font-medium cursor-pointer"
+      className="flex cursor-pointer items-center gap-2 font-medium"
     >
       <Image
         src={Icon.src}

@@ -12,10 +12,10 @@ import { UserCard } from './usercard'
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-2 py-4 h-14 border-b-2 border-b-slate-500 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 flex h-14 items-center justify-between border-b-2 border-b-slate-500 bg-background/95 px-2 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div id="left" className="flex items-center gap-8">
         <Link href="/">
-          <span className="font-bold text-xl dark:text-slate-300 text-slate-700">
+          <span className="text-xl font-bold text-slate-700 dark:text-slate-300">
             Social H
           </span>
         </Link>
@@ -24,13 +24,13 @@ export default function Navbar() {
         <LayoutGrid />
         <div
           id="search"
-          className="flex items-center gap-2 border-solid border-slate-500 border-2 rounded-xl p-2"
+          className="flex items-center gap-2 rounded-xl border-2 border-solid border-slate-500 p-2"
         >
           <Search />
           <input
             type="text"
             placeholder="Pesquisar..."
-            className="border-none w-80 md:w-40 bg-transparent"
+            className="w-80 border-none bg-transparent md:w-40"
           />
         </div>
       </div>
