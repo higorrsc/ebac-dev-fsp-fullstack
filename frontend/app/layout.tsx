@@ -31,14 +31,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="grid grid-cols-[200px_auto_100px]">
-            <div>
-              <MenuBar />
-            </div>
-            <div>{children}</div>
-            <div>
-              <Sidebar />
-            </div>
+          <div className="grid grid-cols-[200px_auto_350px]">
+            <MenuBar />
+            {children}
+            <Sidebar />
           </div>
           <Toaster />
         </ThemeProvider>
