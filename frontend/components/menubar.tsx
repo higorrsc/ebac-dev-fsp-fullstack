@@ -18,103 +18,94 @@ import { MenuItem } from '@/components/menuitem'
 
 export default function MenuBar() {
   return (
-    <div id="menubar">
-      <div className="container p-6 text-sm">
-        <div id="menu" className="flex flex-col gap-4">
-          <MenuItem
-            alt="imagem do usuário"
-            icon={defaultUserImage}
-            title="Usuário logado"
-            href="#"
-          />
-          <MenuItem
-            icon={iconFriends}
-            alt="ícone de amigos"
-            title="Amigos"
-            href="#"
-          />
-          <MenuItem
-            icon={iconGroups}
-            alt="ícone de grupos"
-            title="Grupos"
-            href="#"
-          />
-          <MenuItem
-            icon={iconMarketplace}
-            alt="ícone de marketplace"
-            title="Marketplace"
-            href="#"
-          />
-          <MenuItem
-            icon={iconWatch}
-            alt="ícone de será aleatório"
-            title="Assista"
-            href="#"
-          />
-          <MenuItem
-            icon={iconMemories}
-            alt="ícone de memórias"
-            title="Memórias"
-            href="#"
-          />
+    <div className="flex flex-col gap-2 p-4 text-xs sticky top-14 h-[calc(100vh-56px)] overflow-auto no-scrollbar">
+      <MenuItem
+        alt="imagem do usuário"
+        icon={defaultUserImage}
+        title="Usuário logado"
+        href="#"
+      />
+      <MenuItem
+        icon={iconFriends}
+        alt="ícone de amigos"
+        title="Amigos"
+        href="#"
+      />
+      <MenuItem
+        icon={iconGroups}
+        alt="ícone de grupos"
+        title="Grupos"
+        href="#"
+      />
+      <MenuItem
+        icon={iconMarketplace}
+        alt="ícone de marketplace"
+        title="Marketplace"
+        href="#"
+      />
+      <MenuItem
+        icon={iconWatch}
+        alt="ícone de será aleatório"
+        title="Assista"
+        href="#"
+      />
+      <MenuItem
+        icon={iconMemories}
+        alt="ícone de memórias"
+        title="Memórias"
+        href="#"
+      />
 
-          <hr className="border-none my-2 mx-0 h-[0.5px] bg-slate-500" />
-          <span className="font-semibold text-xs">Atalhos</span>
+      <hr className="border-none my-2 mx-0 h-[0.5px] bg-slate-500" />
+      <span className="font-semibold text-xs">Atalhos</span>
 
-          <MenuItem
-            icon={iconCalendar}
-            alt="ícone de eventos"
-            title="Eventos"
-            href="#"
-          />
-          <MenuItem
-            icon={iconGames}
-            alt="ícone de jogos"
-            title="Jogos"
-            href="#"
-          />
-          <MenuItem
-            icon={iconGallery}
-            alt="ícone de galeria"
-            title="Galeria"
-            href="#"
-          />
-          <MenuItem
-            icon={iconVideos}
-            alt="ícone de videos"
-            title="Vídeos"
-            href="#"
-          />
-          <MenuItem
-            icon={iconMessages}
-            alt="ícone de mensagens"
-            title="Mensagens"
-            href="#"
-          />
+      <MenuItem
+        icon={iconCalendar}
+        alt="ícone de eventos"
+        title="Eventos"
+        href="#"
+      />
+      <MenuItem icon={iconGames} alt="ícone de jogos" title="Jogos" href="#" />
+      <MenuItem
+        icon={iconGallery}
+        alt="ícone de galeria"
+        title="Galeria"
+        href="#"
+      />
+      <MenuItem
+        icon={iconVideos}
+        alt="ícone de videos"
+        title="Vídeos"
+        href="#"
+      />
+      <MenuItem
+        icon={iconMessages}
+        alt="ícone de mensagens"
+        title="Mensagens"
+        href="#"
+      />
 
-          <hr className="border-none my-2 mx-0 h-[0.5px] bg-slate-500" />
-          <span className="font-semibold text-xs">Outros</span>
+      <hr className="border-none my-2 mx-0 h-[0.5px] bg-slate-500" />
+      <span className="font-semibold text-xs">Outros</span>
 
-          <MenuItem
-            icon={iconFundraiser}
-            alt="ícone de levantamento de fundos"
-            title="Fundos"
-            href="#"
-          />
-          <MenuItem
-            icon={iconTutorials}
-            alt="ícone de tutoriais"
-            title="Tutoriais"
-            href="#"
-          />
-          <MenuItem
-            icon={iconCourses}
-            alt="ícone de cursos"
-            title="Cursos"
-            href="#"
-          />
-        </div>
-      </div>
+      <MenuItem
+        icon={iconFundraiser}
+        alt="ícone de levantamento de fundos"
+        title="Fundos"
+        href="#"
+      />
+      <MenuItem
+        icon={iconTutorials}
+        alt="ícone de tutoriais"
+        title="Tutoriais"
+        href="#"
+      />
+      <MenuItem
+        icon={iconCourses}
+        alt="ícone de cursos"
+        title="Cursos"
+        href="#"
+      />
     </div>
   )
 }
