@@ -77,6 +77,8 @@ Rede social criada como projeto final para o curso "Profissão: Desenvolvedor Fu
 
 | Parâmetro       | Tipo     | Descrição                                                                   |
 | :-------------- | :------- | :-------------------------------------------------------------------------- |
+| `first_name`    | `string` | Primeiro nome do usuário                                                    |
+| `last_name`     | `string` | Último nome do usuário                                                      |
 | `gender`        | `string` | **Obrigatório**. Opções válidas: male, female, other                        |
 | `dob`           | `date`   | Data de nascimento                                                          |
 | `phone`         | `string` | Telefone de contato                                                         |
