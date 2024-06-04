@@ -31,6 +31,7 @@ export default function sidebar() {
           alt="imagem do usuário"
           username="Nome do usuário"
           time="1 min"
+          activity="Compartilhou uma publicação"
         />
       </div>
       <div
