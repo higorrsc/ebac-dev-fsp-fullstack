@@ -8,31 +8,45 @@ type UserCardProps = {
   alt: string
   username: string
   follow?: boolean
-  activity?: string | null
-  time?: string | null
+  activity?: string
+  time?: string
   online?: boolean
+  inPost?: boolean
 }
 export const UserCard: React.FC<UserCardProps> = ({
-  image: Icon,
+  image: src,
   alt,
   username,
   follow,
   activity,
   time,
-  online
+  online,
+  inPost
 }) => {
   return (
     <div className="relative flex items-center justify-between">
       <div className="flex items-center gap-2">
         <Image
-          src={Icon}
+          src={src}
           alt={alt}
           width={32}
           height={32}
           className="rounded-full object-cover"
         />
-        <span className="font-medium">{username}</span>
-        {activity && <span>{activity}</span>}
+        {inPost ? (
+          <>
+            <div>
+              <span className="font-medium">{username}</span>
+              <br />
+              {activity && <span className="text-[10px]">{activity}</span>}
+            </div>
+          </>
+        ) : (
+          <>
+            <span className="font-medium">{username}</span>
+            {activity && <span className="text-[10px]">{activity}</span>}
+          </>
+        )}
       </div>
       {time && (
         <div>
