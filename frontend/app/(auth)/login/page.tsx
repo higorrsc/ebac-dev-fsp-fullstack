@@ -86,7 +86,7 @@ export default function LoginAccount() {
         >
           <div
             id="left"
-            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 text-black'
+            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2023/03/19/08/09/network-7862066_1280.jpg")] bg-cover bg-center p-12 text-black'
           >
             <h1 className="text-6xl font-bold">Social H</h1>
             <h2 className="text-3xl font-bold">Bem vindo de volta!</h2>

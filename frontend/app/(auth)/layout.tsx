@@ -1,13 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import './globals.css'
+import '@/app/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
-import Sidebar from '@/components/sidebar'
-import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
-import MenuBar from '@/components/menubar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,12 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="grid grid-cols-[200px_auto_350px]">
-            <MenuBar />
-            {children}
-            <Sidebar />
-          </div>
+          {children}
           <Toaster />
         </ThemeProvider>
       </body>
