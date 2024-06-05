@@ -1,53 +1,59 @@
 import Image, { StaticImageData } from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
 
 type UserCardProps = {
+  id: number
+  username: string
   image: StaticImageData
   alt: string
-  username: string
-  follow?: boolean
   activity?: string
   time?: string
   online?: boolean
+  follow?: boolean
   inPost?: boolean
 }
 export const UserCard: React.FC<UserCardProps> = ({
+  id,
+  username,
   image: src,
   alt,
-  username,
-  follow,
   activity,
   time,
   online,
+  follow,
   inPost
 }) => {
   return (
     <div className="relative flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <Image
-          src={src}
-          alt={alt}
-          width={32}
-          height={32}
-          className="rounded-full object-cover"
-        />
-        {inPost ? (
-          <>
-            <div>
-              <span className="font-medium">{username}</span>
-              <br />
-              {activity && <span className="text-[10px]">{activity}</span>}
-            </div>
-          </>
-        ) : (
-          <>
-            <span className="font-medium">{username}</span>
-            {activity && <span className="text-[10px]">{activity}</span>}
-          </>
-        )}
-      </div>
+      <Link href={`/profile/${id}`}>
+        <div className="flex items-center gap-2">
+          <Image
+            src={src}
+            alt={alt}
+            width={32}
+            height={32}
+            className="rounded-full object-cover"
+          />
+          {inPost ? (
+            <>
+              <div className="flex flex-col">
+                <span className="font-medium">{username}</span>
+                {activity && <span className="text-[10px]">{activity}</span>}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center gap-2">
+                <span className="font-medium">{username}</span>
+                {activity && <span className="text-[10px]">{activity}</span>}
+              </div>
+            </>
+          )}
+        </div>
+      </Link>
       {time && (
         <div>
           <span>{time}</span>

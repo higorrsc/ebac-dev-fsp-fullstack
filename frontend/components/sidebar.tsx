@@ -15,6 +15,7 @@ export default function sidebar() {
       >
         <p className="pb-2">Sugestões para você</p>
         <UserCard
+          id={1}
           image={defaultUser}
           alt="imagem do usuário"
           username="Nome do usuário"
@@ -27,11 +28,20 @@ export default function sidebar() {
       >
         <p className="pb-2">Últimas atividades</p>
         <UserCard
+          id={1}
           image={defaultUser}
           alt="imagem do usuário"
           username="Nome do usuário"
           time="1 min"
           activity="Compartilhou uma publicação"
+        />
+        <UserCard
+          id={1}
+          image={defaultUser}
+          alt="imagem do usuário"
+          username="Nome do usuário"
+          activity="Compartilhou uma publicação"
+          inPost
         />
       </div>
       <div
@@ -40,6 +50,7 @@ export default function sidebar() {
       >
         <p className="pb-2">Amigos online</p>
         <UserCard
+          id={1}
           image={defaultUser}
           alt="imagem do usuário"
           username="Nome do usuário"
