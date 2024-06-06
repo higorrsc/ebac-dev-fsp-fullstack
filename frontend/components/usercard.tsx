@@ -14,6 +14,7 @@ type UserCardProps = {
   online?: boolean
   follow?: boolean
   inPost?: boolean
+  onlyImage?: boolean
 }
 export const UserCard: React.FC<UserCardProps> = ({
   id,
@@ -24,7 +25,8 @@ export const UserCard: React.FC<UserCardProps> = ({
   time,
   online,
   follow,
-  inPost
+  inPost,
+  onlyImage = false
 }) => {
   return (
     <div className="relative flex items-center justify-between">
@@ -37,19 +39,19 @@ export const UserCard: React.FC<UserCardProps> = ({
             height={32}
             className="rounded-full object-cover"
           />
-          {inPost ? (
+          {!onlyImage && (
             <>
-              <div className="flex flex-col">
-                <span className="font-medium">{username}</span>
-                {activity && <span className="text-[10px]">{activity}</span>}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex items-center gap-2">
-                <span className="font-medium">{username}</span>
-                {activity && <span className="text-[10px]">{activity}</span>}
-              </div>
+              {inPost ? (
+                <div className="flex flex-col">
+                  <span className="font-medium">{username}</span>
+                  {activity && <span className="text-[10px]">{activity}</span>}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">{username}</span>
+                  {activity && <span className="text-[10px]">{activity}</span>}
+                </div>
+              )}
             </>
           )}
         </div>
