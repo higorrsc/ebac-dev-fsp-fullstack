@@ -2,7 +2,8 @@ import Image, { StaticImageData } from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Ellipsis, Heart, MessageSquareMore, Share2 } from 'lucide-react'
 
-import { UserCard } from './usercard'
+import Comments from '@/components/comment'
+import { UserCard } from '@/components/usercard'
 import defaultUser from '@/images/profile/default-user.png'
 
 type PostProps = {
@@ -28,6 +29,9 @@ export const Post: React.FC<PostProps> = ({
   // useEffect(() => {
   //   setLiked(false)
   // }, [id])
+
+  const [commentOpen, setCommentOpen] = useState(false)
+
   const liked = true
 
   return (
@@ -60,13 +64,17 @@ export const Post: React.FC<PostProps> = ({
         <div className="flex items-center gap-2 text-xs">
           {liked ? <Heart fill="red" /> : <Heart />} 12 likes
         </div>
-        <div className="flex items-center gap-2 text-xs">
+        <div
+          className="flex cursor-pointer items-center gap-2 text-xs"
+          onClick={() => setCommentOpen(!commentOpen)}
+        >
           <MessageSquareMore /> 12 comentários
         </div>
         <div className="flex items-center gap-2 text-xs">
           <Share2 /> Compartilhar
         </div>
       </div>
+      {commentOpen && <Comments />}
     </div>
   )
 }
