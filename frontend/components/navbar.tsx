@@ -7,8 +7,8 @@ import { useTheme } from 'next-themes'
 import { Home, LayoutGrid, Bell, Mail, User, Search } from 'lucide-react'
 
 import { ToggleTheme } from '@/components/toggle-theme'
+import { UserCard } from '@/components/usercard'
 import defaultUserImage from '@/images/profile/default-user.png'
-import { UserCard } from './usercard'
 
 export default function Navbar() {
   return (
@@ -39,6 +39,7 @@ export default function Navbar() {
         <Mail />
         <Bell />
         <UserCard
+          id={1}
           image={defaultUserImage}
           alt="imagem do usuário"
           username="Usuário logado"
