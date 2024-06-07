@@ -36,6 +36,7 @@ export default function RootLayout({
             {children}
             <Sidebar />
           </div>
+          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>
