@@ -31,7 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="grid grid-cols-[200px_auto_400px]">
+          <div className="container flex justify-around">
             <MenuBar />
             {children}
             <Sidebar />
