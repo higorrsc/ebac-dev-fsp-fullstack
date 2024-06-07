@@ -11,7 +11,7 @@ from posts.models import Post
 class Comment(models.Model):
     owner = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
-    comment = models.CharField(max_length=4000)
+    comment = models.CharField(max_length=280)
     comment_image = models.ImageField(upload_to="comment_images", null=True, blank=True)
     comment_date = models.DateField(auto_now_add=True)
 
