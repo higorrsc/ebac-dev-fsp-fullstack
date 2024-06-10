@@ -27,7 +27,7 @@ export default function PostBar() {
     }
   ]
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-4">
       {posts.map((post) => (
         <Post key={post.id} {...post} />
       ))}

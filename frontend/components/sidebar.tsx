@@ -8,7 +8,7 @@ import InfoBlock from '@/components/infoblock'
 
 export default function sidebar() {
   return (
-    <div className="no-scrollbar sticky top-14 flex h-[calc(100vh-56px)] flex-col gap-2 overflow-auto p-4 text-xs">
+    <div className="no-scrollbar sticky top-14 hidden flex-col gap-2 overflow-auto p-4 text-xs md:flex md:h-[calc(100vh-80px)] md:min-w-[400px]">
       <InfoBlock title="Sugestões para você">
         <UserCard
           id={1}

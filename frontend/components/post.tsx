@@ -35,46 +35,57 @@ export const Post: React.FC<PostProps> = ({
   const liked = true
 
   return (
-    <div className="rounded-xl border-2 p-4 shadow-xl">
-      <div id="user" className="flex items-center justify-between">
-        <UserCard
-          id={userId}
-          image={defaultUser}
-          alt="imagem do usuário"
-          username={username}
-          inPost
-          activity={date}
-        />
-        <Ellipsis />
-      </div>
-      <div id="content" className="my-4 flex flex-col items-center">
-        <p>{content}</p>
-        {image && (
-          <Image
-            src={image}
-            alt={content}
-            width={800}
-            height={800}
-            className="mt-4 object-cover"
+    <div className="rounded-2xl border-2 shadow-xl">
+      <div className="p-4">
+        {/* user */}
+        <div className="flex items-center justify-between">
+          <UserCard
+            id={userId}
+            image={defaultUser}
+            alt="imagem do usuário"
+            username={username}
+            inPost
+            activity={date}
           />
+          <Ellipsis />
+        </div>
+        {/* content */}
+        <div className="my-4">
+          <p>{content}</p>
+          {image && (
+            <Image
+              src={image}
+              alt={content}
+              width={800}
+              height={800}
+              className="mt-4 object-cover"
+            />
+          )}
+          <p className="text-center">{category}</p>
+        </div>
+        {/* info */}
+        <div className="flex items-center gap-5">
+          <div className="flex cursor-pointer items-center gap-2 text-xs">
+            {liked ? <Heart fill="red" /> : <Heart />} 12 likes
+          </div>
+          <div
+            className="flex cursor-pointer items-center gap-2 text-xs"
+            onClick={() => setCommentOpen(!commentOpen)}
+          >
+            <MessageSquareMore /> 12 comentários
+          </div>
+          <div className="flex cursor-pointer items-center gap-2 text-xs">
+            <Share2 /> Compartilhar
+          </div>
+        </div>
+        {/* comments */}
+        {commentOpen && (
+          <div className="w-full">
+            {' '}
+            <Comments />{' '}
+          </div>
         )}
-        <p>{category}</p>
       </div>
-      <div id="info" className="flex items-center gap-5">
-        <div className="flex items-center gap-2 text-xs">
-          {liked ? <Heart fill="red" /> : <Heart />} 12 likes
-        </div>
-        <div
-          className="flex cursor-pointer items-center gap-2 text-xs"
-          onClick={() => setCommentOpen(!commentOpen)}
-        >
-          <MessageSquareMore /> 12 comentários
-        </div>
-        <div className="flex items-center gap-2 text-xs">
-          <Share2 /> Compartilhar
-        </div>
-      </div>
-      {commentOpen && <Comments />}
     </div>
   )
 }

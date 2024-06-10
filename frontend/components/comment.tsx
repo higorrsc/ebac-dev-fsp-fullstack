@@ -10,7 +10,7 @@ const Comments = () => {
     {
       id: 1,
       comment:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam modi sequi laborum possimus voluptatem explicabo tenetur, aperiam assumenda minus accusamus repellendus, dolorem consectetur nisi. Amet et iusto sint, vero dolor doloremque maxime dolore officia error sit. Vero doloribus, accusantium, corrupti eius ipsa sit nihil sed impedit cumque pariatur distinctio tenetur?',
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus unde blanditiis aspernatur provident ipsa sunt consequuntur, ad ipsam voluptatibus voluptatem omnis! Ipsam velit, doloribus praesentium eius eveniet facere, illum corrupti, ab veniam natus itaque quasi.',
       image: 'https://picsum.photos/1920/1080',
       date: '2024-06-05',
       postId: 1,
@@ -25,8 +25,9 @@ const Comments = () => {
     }
   ]
   return (
-    <>
-      <div id="new" className="align-center mt-4 flex justify-between gap-2">
+    <div className="w-full">
+      {/* new comment */}
+      <div className="mt-4 flex items-center justify-between gap-2">
         <UserCard
           id={1}
           image={currentUser}
@@ -43,9 +44,10 @@ const Comments = () => {
           Comentar
         </Button>
       </div>
+      {/* all comments */}
       {comments.map((comment) => (
-        <div key={comment.id} className="my-8 flex justify-between">
-          <div className="flex flex-1 flex-col items-start gap-1">
+        <div key={comment.id} className="mx-0 my-8 flex justify-between gap-4">
+          <div className="flex max-w-xl flex-1 flex-col items-start gap-1">
             <UserCard
               id={comment.userId}
               image={defaultUser}
@@ -59,7 +61,7 @@ const Comments = () => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 

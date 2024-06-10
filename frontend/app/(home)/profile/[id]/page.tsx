@@ -41,8 +41,9 @@ export interface ProfileData {
 
 export default function Profile() {
   return (
-    <div id="profile">
-      <div id="images" className="relative h-72 w-full">
+    <div>
+      {/* images */}
+      <div className="relative h-72 w-full pt-4">
         <Image
           id="cover"
           src="https://picsum.photos/1920/1080"
@@ -60,12 +61,11 @@ export default function Profile() {
           className="absolute left-0 right-0 top-52 m-auto h-40 w-40 rounded-full object-cover"
         />
       </div>
-      <div id="data" className="px-16 py-4">
-        <div
-          id="userinfo"
-          className="mb-4 flex h-60 items-center justify-between rounded-2xl bg-gray-300 px-12 shadow-md dark:bg-gray-700"
-        >
-          <div id="left" className="flex flex-1 gap-4">
+      {/* user data */}
+      <div className="p-4">
+        <div className="mb-4 flex h-60 items-center justify-between rounded-2xl bg-gray-300 px-12 shadow-md dark:bg-gray-700">
+          {/* left side */}
+          <div className="flex flex-1 gap-4">
             <Link href="#">
               <Facebook />
             </Link>
@@ -82,7 +82,8 @@ export default function Profile() {
               <Youtube />
             </Link>
           </div>
-          <div id="center" className="flex flex-1 flex-col items-center gap-2">
+          {/* center */}
+          <div className="flex flex-1 flex-col items-center gap-2">
             <span className="text-3xl">John Doe</span>
             <div className="flex w-full items-center justify-center text-xs">
               <MapPin />
@@ -92,14 +93,13 @@ export default function Profile() {
               Seguir
             </Button>
           </div>
-          <div
-            id="right"
-            className="flex flex-1 items-center justify-end gap-4"
-          >
+          {/* right side */}
+          <div className="flex flex-1 items-center justify-end gap-4">
             <Mail />
             <MoreVerticalIcon />
           </div>
         </div>
+        {/* posts */}
         <PostBar />
       </div>
     </div>

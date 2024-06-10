@@ -31,7 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="container flex justify-around">
+          <div className="container flex md:justify-around">
             <MenuBar />
             {children}
             <Sidebar />
