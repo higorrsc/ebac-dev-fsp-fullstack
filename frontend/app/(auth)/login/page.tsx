@@ -79,39 +79,41 @@ export default function LoginAccount() {
 
   return (
     <div className="container m-auto">
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center sm:my-4">
         <div
           id="card"
           className="grid min-h-[600px] w-full grid-cols-1 overflow-hidden rounded-2xl bg-slate-300 md:grid-cols-2"
         >
           <div
             id="left"
-            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2023/03/19/08/09/network-7862066_1280.jpg")] bg-cover bg-center p-12 text-black'
+            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2023/03/19/08/09/network-7862066_1280.jpg")] bg-cover bg-center p-12 text-xs text-black md:text-sm'
           >
-            <h1 className="text-6xl font-bold">Social H</h1>
-            <h2 className="text-3xl font-bold">Bem vindo de volta!</h2>
-            <p className="text-sm">
-              Estamos felizes em tê-lo de volta à nossa comunidade. Entre em sua
-              conta para continuar conectado com seus amigos, familiares e
-              interesses.
-            </p>
-            <p className="text-xs">Faça login para:</p>
-            <ul className="list-inside list-disc text-xs">
-              <li>Compartilhar seus pensamentos e ideias.</li>
-              <li>Acompanhar as últimas notícias e tendências.</li>
-              <li>Conectar-se com amigos e familiares.</li>
-              <li>Descobrir novos conteúdos e inspirações.</li>
-              <li>Participar de grupos e comunidades.</li>
-              <li>Fazer a diferença no mundo.</li>
-            </ul>
-            <p className="text-xs">Ainda não tem uma conta?</p>
-            <span className="text-xs">
+            <h1 className="text-2xl font-bold">Social H</h1>
+            <h2 className="text-xl font-bold">Bem vindo de volta!</h2>
+            <div className="hidden md:flex md:flex-col md:gap-8">
+              <p className="text-xs md:text-sm">
+                Estamos felizes em tê-lo de volta à nossa comunidade. Entre em
+                sua conta para continuar conectado com seus amigos, familiares e
+                interesses.
+              </p>
+              <p className="text-xs md:text-sm">Faça login para:</p>
+              <ul className="list-inside list-disc text-xs">
+                <li>Compartilhar seus pensamentos e ideias.</li>
+                <li>Acompanhar as últimas notícias e tendências.</li>
+                <li>Conectar-se com amigos e familiares.</li>
+                <li>Descobrir novos conteúdos e inspirações.</li>
+                <li>Participar de grupos e comunidades.</li>
+                <li>Fazer a diferença no mundo.</li>
+              </ul>
+            </div>
+            <p className="text-xs md:text-sm">Ainda não tem uma conta?</p>
+            <span className="text-xs md:text-sm">
               Cadastre-se agora mesmo e junte-se à nossa comunidade! É fácil e
               rápido.
             </span>
             <Link
               href="/signup"
-              className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
+              className="w-full rounded-2xl border-2 border-black bg-white p-2 text-center md:w-[25%]"
             >
               Criar conta
             </Link>
@@ -123,7 +125,7 @@ export default function LoginAccount() {
             <h1 className="pb-10 text-2xl font-bold text-gray-700">Login</h1>
             <form
               id="login"
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-4 text-xs md:text-sm"
               onSubmit={handleSubmit(submitLogin)}
             >
               <input
@@ -151,7 +153,7 @@ export default function LoginAccount() {
                 </p>
               )}
               <button
-                className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
+                className="w-full rounded-2xl border-2 border-black bg-white p-2 text-center md:w-[25%]"
                 type="submit"
               >
                 Login

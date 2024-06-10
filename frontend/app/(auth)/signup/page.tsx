@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from '@/components/ui/button'
 import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/components/ui/use-toast'
 import apiService from '@/app/services/apiService'
@@ -54,8 +53,9 @@ export default function SignUp() {
   const toastError = (description: string) => {
     toast({
       variant: 'destructive',
+      title: 'Erro',
       description: description,
-      title: 'Erro'
+      action: <ToastAction altText="Fechar">Fechar</ToastAction>
     })
   }
 
@@ -75,12 +75,15 @@ export default function SignUp() {
 
     if (res.id) {
       toast({
+        title: 'Sucesso',
         description:
           'Conta criada com sucesso! Você pode fazer o login e completar seu perfil...',
-        title: 'Sucesso',
         action: (
-          <ToastAction altText="Ir para o login">
-            <Button onClick={() => router.push('/login')}>Ir para login</Button>
+          <ToastAction
+            altText="Ir para o login"
+            onClick={() => router.push('/login')}
+          >
+            Ir para login
           </ToastAction>
         )
       })
@@ -102,7 +105,7 @@ export default function SignUp() {
 
   return (
     <div className="container m-auto">
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center sm:my-4">
         <div
           id="card"
           className="grid min-h-[600px] w-full grid-cols-1 overflow-hidden rounded-2xl bg-slate-300 md:grid-cols-2"
@@ -117,7 +120,7 @@ export default function SignUp() {
             <form
               id="signup"
               onSubmit={handleSubmit(submitSignUp)}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-4 text-xs md:text-sm"
             >
               <input
                 type="email"
@@ -127,7 +130,7 @@ export default function SignUp() {
                 {...register('email')}
               />
               {errors.email && (
-                <p className="text-xs text-red-500">{errors.email?.message}</p>
+                <p className="text-red-500">{errors.email?.message}</p>
               )}
               <input
                 type="text"
@@ -137,9 +140,7 @@ export default function SignUp() {
                 {...register('username')}
               />
               {errors.username && (
-                <p className="text-xs text-red-500">
-                  {errors.username?.message}
-                </p>
+                <p className="text-red-500">{errors.username?.message}</p>
               )}
               <div className="grid grid-cols-2">
                 <div className="block">
@@ -151,9 +152,7 @@ export default function SignUp() {
                     {...register('password')}
                   />
                   {errors.password && (
-                    <p className="text-xs text-red-500">
-                      {errors.password?.message}
-                    </p>
+                    <p className="text-red-500">{errors.password?.message}</p>
                   )}
                 </div>
                 <div className="block">
@@ -165,14 +164,14 @@ export default function SignUp() {
                     {...register('confirmPassword')}
                   />
                   {errors.confirmPassword && (
-                    <p className="text-xs text-red-500">
+                    <p className="text-red-500">
                       {errors.confirmPassword?.message}
                     </p>
                   )}
                 </div>
               </div>
               <button
-                className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
+                className="w-full rounded-2xl border-2 border-black bg-white p-2 text-center md:w-[25%]"
                 type="submit"
               >
                 Registrar
@@ -181,27 +180,29 @@ export default function SignUp() {
           </div>
           <div
             id="right"
-            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 text-black'
+            className='flex flex-col gap-8 bg-[linear-gradient(to_right_bottom,rgba(255,255,255,0.8),rgba(133,133,133,0.8)),url("https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_1280.png")] bg-cover bg-center p-12 text-xs text-black md:text-sm'
           >
-            <h1 className="text-6xl font-bold">Social H</h1>
-            <p className="text-sm">
+            <h1 className="text-2xl font-bold">Social H</h1>
+            <p className="text-xs md:text-sm">
               Estamos felizes em apresentar a você uma nova rede social que está
               sendo desenvolvida com o objetivo de conectar pessoas com
               interesses em comum, compartilhar experiências, promover debates e
               compartilhar conhecimento.
             </p>
-            <p className="text-xs">O que você pode esperar da Social H?</p>
-            <ul className="list-inside list-disc text-xs">
-              <li>Um ambiente acolhedor e inclusivo</li>
-              <li>Ferramentas para facilitar a conexão</li>
-              <li>Conteúdos de qualidade</li>
-              <li>Oportunidade para se expressar</li>
-              <li>Um espaço para fazer a diferença</li>
-            </ul>
-            <span className="text-xs">Já tem uma conta?</span>
+            <div className="hidden md:flex md:flex-col md:gap-8">
+              <p>O que você pode esperar da Social H?</p>
+              <ul className="list-inside list-disc text-xs">
+                <li>Um ambiente acolhedor e inclusivo</li>
+                <li>Ferramentas para facilitar a conexão</li>
+                <li>Conteúdos de qualidade</li>
+                <li>Oportunidade para se expressar</li>
+                <li>Um espaço para fazer a diferença</li>
+              </ul>
+            </div>
+            <span className="text-xs md:text-sm">Já tem uma conta?</span>
             <Link
               href="/login"
-              className="w-[50%] rounded-2xl border-2 border-black bg-white p-2 text-center text-sm"
+              className="w-full rounded-2xl border-2 border-black bg-white p-2 text-center md:w-[25%]"
             >
               Fazer login
             </Link>
