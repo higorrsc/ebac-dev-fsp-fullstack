@@ -7,9 +7,8 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
 import apiService from '@/app/services/apiService'
+import ModalMessage from '@/components/modalmessage'
 import { getUserId } from '@/lib/actions'
 
 const registerUserSchema = z
@@ -33,10 +32,20 @@ const registerUserSchema = z
 type FormData = z.infer<typeof registerUserSchema>
 
 export default function SignUp() {
-  const { toast } = useToast()
+  const [hasError, setHasError] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [userId, setUserId] = useState<string | null>('')
+  const [modalDescription, setModalDescription] = useState('')
+
   const router = useRouter()
 
-  const [userId, setUserId] = useState<string | null>('')
+  const handleCloseModal = () => {
+    setIsOpen(false)
+    if (!hasError) {
+      router.push('/')
+    }
+  }
+
   useEffect(() => {
     ;(async () => {
       const gUserId = await getUserId()
@@ -50,15 +59,6 @@ export default function SignUp() {
     }
   })
 
-  const toastError = (description: string) => {
-    toast({
-      variant: 'destructive',
-      title: 'Erro',
-      description: description,
-      action: <ToastAction altText="Fechar">Fechar</ToastAction>
-    })
-  }
-
   const submitSignUp = async (data: FormData) => {
     const userData = {
       email: data.email,
@@ -69,27 +69,22 @@ export default function SignUp() {
     const errors = res.errors
 
     if (errors) {
-      toastError(errors.join(', '))
-      return
+      setHasError(true)
+      setIsOpen(true)
+      setModalDescription(errors.join(', '))
     }
 
     if (res.id) {
-      toast({
-        title: 'Sucesso',
-        description:
-          'Conta criada com sucesso! Você pode fazer o login e completar seu perfil...',
-        action: (
-          <ToastAction
-            altText="Ir para o login"
-            onClick={() => router.push('/login')}
-          >
-            Ir para login
-          </ToastAction>
-        )
-      })
+      setHasError(false)
+      setIsOpen(true)
+      setModalDescription(
+        'Conta criada com sucesso! Você pode fazer o login e completar seu perfil...'
+      )
     } else {
       if (!res.id && res.username) {
-        toastError('Nome de usuário em uso')
+        setHasError(true)
+        setIsOpen(true)
+        setModalDescription('Nome de usuário já cadastrado')
       }
     }
   }
@@ -106,6 +101,14 @@ export default function SignUp() {
   return (
     <div className="container m-auto">
       <div className="flex h-screen items-center justify-center sm:my-4">
+        {isOpen && (
+          <ModalMessage
+            title={hasError ? 'Erro!' : 'Sucesso!'}
+            description={modalDescription}
+            icon={hasError ? 'critical' : 'information'}
+            onClose={handleCloseModal}
+          />
+        )}
         <div
           id="card"
           className="grid min-h-[600px] w-full grid-cols-1 overflow-hidden rounded-2xl bg-slate-300 md:grid-cols-2"

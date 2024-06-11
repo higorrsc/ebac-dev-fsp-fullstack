@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useToast } from '@/components/ui/use-toast'
 import apiService from '@/app/services/apiService'
+import ModalMessage from '@/components/modalmessage'
 import { getUserId, handleLogin } from '@/lib/actions'
 
 const loginSchema = z.object({
@@ -21,10 +21,16 @@ const loginSchema = z.object({
 type FormData = z.infer<typeof loginSchema>
 
 export default function LoginAccount() {
-  const { toast } = useToast()
+  const [isOpen, setIsOpen] = useState(false)
+  const [modalDescription, setModalDescription] = useState('')
+  const [userId, setUserId] = useState<string | null>('')
+
   const router = useRouter()
 
-  const [userId, setUserId] = useState<string | null>('')
+  const handleCloseModal = () => {
+    setIsOpen(false)
+  }
+
   useEffect(() => {
     ;(async () => {
       const gUserId = await getUserId()
@@ -38,21 +44,13 @@ export default function LoginAccount() {
     }
   })
 
-  const toastError = (description: string) => {
-    toast({
-      variant: 'destructive',
-      description: description,
-      title: 'Erro'
-    })
-  }
-
   const submitLogin = async (data: FormData) => {
     const response = await apiService.post('/token/', data)
     const errors = response.errors
 
     if (errors) {
-      toastError(errors.join(', '))
-      return
+      setIsOpen(true)
+      setModalDescription(errors.join(', '))
     }
 
     if (response.access && response.refresh) {
@@ -64,7 +62,8 @@ export default function LoginAccount() {
       )
       router.push('/')
     } else {
-      toastError('Nome de usuário ou senha inválido(a)')
+      setIsOpen(true)
+      setModalDescription('Nome de usuário ou senha inválido(a)')
     }
   }
 
@@ -80,6 +79,14 @@ export default function LoginAccount() {
   return (
     <div className="container m-auto">
       <div className="flex h-screen items-center justify-center sm:my-4">
+        {isOpen && (
+          <ModalMessage
+            title="Erro"
+            description={modalDescription}
+            icon="critical"
+            onClose={handleCloseModal}
+          />
+        )}
         <div
           id="card"
           className="grid min-h-[600px] w-full grid-cols-1 overflow-hidden rounded-2xl bg-slate-300 md:grid-cols-2"
