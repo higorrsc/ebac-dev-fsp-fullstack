@@ -7,13 +7,15 @@ type MenuItemProps = {
   alt: string
   title: string
   href: string
+  onlyImage?: boolean
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
   icon: Icon,
   alt,
   title,
-  href
+  href,
+  onlyImage = false
 }) => {
   return (
     <Link
@@ -27,7 +29,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         width={32}
         height={32}
       />
-      <span>{title}</span>
+      {!onlyImage && <span>{title}</span>}
     </Link>
   )
 }
