@@ -18,7 +18,7 @@ import { MenuItem } from '@/components/menuitem'
 
 export default function MenuBar() {
   return (
-    <div className="no-scrollbar sticky top-14 hidden flex-col gap-2 overflow-auto p-4 text-xs md:flex md:h-[calc(100vh-80px)] md:w-48">
+    <nav className="no-scrollbar sticky top-0 hidden flex-col gap-2 overflow-auto p-4 text-xs md:flex md:h-[calc(100vh-80px)] md:w-48">
       <MenuItem
         alt="imagem do usuário"
         icon={defaultUserImage}
@@ -106,6 +106,6 @@ export default function MenuBar() {
         title="Cursos"
         href="#"
       />
-    </div>
+    </nav>
   )
 }
