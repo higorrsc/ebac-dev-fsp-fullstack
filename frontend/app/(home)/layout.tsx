@@ -3,9 +3,7 @@ import { Inter } from 'next/font/google'
 
 import '@/app/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Toaster } from '@/components/ui/toaster'
 import Sidebar from '@/components/sidebar'
-import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import MenuBar from '@/components/menubar'
 
@@ -30,14 +28,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
           <div className="container flex md:justify-around">
             <MenuBar />
             {children}
             <Sidebar />
           </div>
           <Footer />
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>
