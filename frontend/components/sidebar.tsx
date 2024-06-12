@@ -2,13 +2,13 @@
 
 import React from 'react'
 
-import defaultUser from '@/images/profile/default-user.png'
-import { UserCard } from '@/components/usercard'
 import InfoBlock from '@/components/infoblock'
+import { UserCard } from '@/components/usercard'
+import defaultUser from '@/images/profile/default-user.png'
 
-export default function sidebar() {
+export default function SideBar() {
   return (
-    <div className="no-scrollbar sticky top-14 hidden flex-col gap-2 overflow-auto p-4 text-xs md:flex md:h-[calc(100vh-80px)] md:min-w-[400px]">
+    <div className="no-scrollbar sticky top-0 hidden h-full flex-col gap-2 overflow-auto p-4 text-xs md:flex md:min-w-[400px]">
       <InfoBlock title="Sugestões para você">
         <UserCard
           id={1}
