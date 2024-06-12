@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Ellipsis, Heart, MessageSquareMore, Share2 } from 'lucide-react'
 
 import Comments from '@/components/comment'
