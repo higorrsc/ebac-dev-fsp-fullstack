@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Post } from './post'
+import { Post } from '@/components/post'
 
 export default function PostBar() {
   const posts = [
@@ -17,6 +17,27 @@ export default function PostBar() {
     },
     {
       id: 2,
+      username: 'Jane Doe',
+      userId: 2,
+      profilPic: 'https://i.pravatar.cc/300',
+      content:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, nostrum.',
+      date: '2024-06-05',
+      category: '#post #python #nextjs'
+    },
+    {
+      id: 3,
+      username: 'John Doe',
+      userId: 1,
+      profilPic: 'https://i.pravatar.cc/300',
+      image: 'https://picsum.photos/1920/1080',
+      content:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, nostrum.',
+      date: '2024-06-05',
+      category: '#post #python #javascript'
+    },
+    {
+      id: 4,
       username: 'Jane Doe',
       userId: 2,
       profilPic: 'https://i.pravatar.cc/300',
