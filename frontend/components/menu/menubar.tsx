@@ -13,18 +13,26 @@ import { useRouter } from 'next/navigation'
 
 import { MenuItem } from '@/components/menu/menuitem'
 import logo from '@/images/logo-h.png'
-import { getUserId } from '@/lib/actions'
+import { getUserId, resetAuthCookies } from '@/lib/actions'
 
 export default function MenuBar() {
   const router = useRouter()
   const [userId, setUserId] = useState<string | null>(null)
+  const [route, setRoute] = useState<string>('/login')
 
   useEffect(() => {
     ;(async () => {
       const gUserId = await getUserId()
       setUserId(gUserId)
+      setRoute(`/profile/${gUserId}`)
     })()
-  })
+  }, [userId])
+
+  const handleLogout = async () => {
+    await resetAuthCookies()
+    setUserId(null)
+    router.push('/login')
+  }
 
   const menuItems = [
     {
@@ -43,13 +51,13 @@ export default function MenuBar() {
       icon: UserIcon,
       label: 'Perfil',
       href: '#',
-      onClick: () => router.push(`/profile/${userId}`)
+      onClick: () => router.push(route)
     },
     {
       icon: LogOutIcon,
       label: 'Sair',
       href: null,
-      onClick: () => {}
+      onClick: handleLogout
     },
     {
       icon: StickyNoteIcon,
