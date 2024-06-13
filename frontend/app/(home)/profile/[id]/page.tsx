@@ -2,21 +2,11 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  MoreVerticalIcon,
-  Twitter,
-  Youtube
-} from 'lucide-react'
+import { Mail, MapPin, MoreVerticalIcon } from 'lucide-react'
 
 import defaultProfilePicture from '@/images/profile/default-user.png'
 import { Button } from '@/components/ui/button'
-import PostBar from '@/components/postbar'
+import PostBar from '@/components/posts/postbar'
 
 export interface UserData {
   id: number
@@ -67,19 +57,7 @@ export default function Profile() {
           {/* left side */}
           <div className="flex flex-1 gap-4">
             <Link href="#">
-              <Facebook />
-            </Link>
-            <Link href="#">
-              <Instagram />
-            </Link>
-            <Link href="#">
-              <Twitter />
-            </Link>
-            <Link href="#">
-              <Linkedin />
-            </Link>
-            <Link href="#">
-              <Youtube />
+              <Mail />
             </Link>
           </div>
           {/* center */}
@@ -95,7 +73,6 @@ export default function Profile() {
           </div>
           {/* right side */}
           <div className="flex flex-1 items-center justify-end gap-4">
-            <Mail />
             <MoreVerticalIcon />
           </div>
         </div>

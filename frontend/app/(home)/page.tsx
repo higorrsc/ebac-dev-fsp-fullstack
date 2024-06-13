@@ -1,7 +1,7 @@
 'use client'
 
 import Header from '@/components/header'
-import PostBar from '@/components/postbar'
+import PostBar from '@/components/posts/postbar'
 
 export default function Home() {
   return (
