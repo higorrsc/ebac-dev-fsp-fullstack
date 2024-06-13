@@ -95,33 +95,37 @@ export default function Profile({ params }: { params: { id: string } }) {
         />
       </div>
       {/* user data */}
-      <div className="p-4">
-        <div className="mb-4 flex items-center justify-between rounded-2xl bg-gray-300 shadow-md dark:bg-gray-900">
-          {/* left side */}
-          <div className="flex flex-1 gap-4">
-            <a href={`mailto:${userData?.email}`}>
-              <Mail />
-            </a>
-          </div>
-          {/* center */}
-          <div className="flex flex-1 flex-col items-center gap-2">
+      <div className="mb-4 flex flex-col items-start bg-gray-300 py-4 shadow-md dark:bg-gray-900">
+        <div className="grid w-full grid-cols-3">
+          <div className="col-span-2 flex flex-col px-4 pt-20">
             <span className="text-2xl">{fullName}</span>
-            <div className="flex w-full items-center justify-center text-xs">
-              <MapPin />
-              <span>{userData?.profile_data?.lives_in}</span>
-            </div>
-            <Button className="cursor-pointer rounded-xl border-none bg-blue-600 px-4 py-2 text-xs hover:bg-blue-900">
-              Seguir
-            </Button>
+            <span className="text-sm">{userData?.username}</span>
+            <span className="text-sm">{userData?.profile_data?.dob}</span>
           </div>
-          {/* right side */}
-          <div className="flex flex-1 items-center justify-end gap-4">
-            <MoreVerticalIcon />
+          <div className="w-full">
+            <div className="flex items-center justify-end gap-4 p-4">
+              <a href={`mailto:${userData?.email}`}>
+                <Mail />
+              </a>
+              <Button className="cursor-pointer rounded-xl border-none bg-blue-600 text-xs hover:bg-blue-900">
+                Seguir
+              </Button>
+              <MoreVerticalIcon />
+            </div>
+            <div className="flex w-full flex-col items-center justify-end p-4 text-xs">
+              <div className="flex w-full items-center justify-end">
+                <MapPin />
+                <span>{userData?.profile_data?.lives_in}</span>
+              </div>
+              <div className="flex w-full items-center justify-end">
+                <span>{userData?.profile_data?.studies_at}</span>
+              </div>
+            </div>
           </div>
         </div>
-        {/* posts */}
-        <PostBar />
       </div>
+      {/* posts */}
+      <PostBar />
     </div>
   )
 }
