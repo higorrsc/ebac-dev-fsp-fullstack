@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, MapPin, MoreVerticalIcon } from 'lucide-react'
@@ -7,65 +8,107 @@ import { Mail, MapPin, MoreVerticalIcon } from 'lucide-react'
 import defaultProfilePicture from '@/images/profile/default-user.png'
 import { Button } from '@/components/ui/button'
 import PostBar from '@/components/posts/postbar'
+import apiService from '@/app/services/apiService'
+import ModalMessage from '@/components/modalmessage'
+import Header from '@/components/header'
 
-export interface UserData {
-  id: number
-  username: string
-  is_active: boolean
-  profile_data: ProfileData | null
-}
-
-export interface ProfileData {
+type ProfileData = {
   id: number
   owner: string
   first_name: string
   last_name: string
   gender: string
-  dob: Date
+  dob: string
   phone: string
   works_at: string
   lives_in: string
   studies_at: string
   profile_image: string
 }
+type UserData = {
+  id: number
+  username: string
+  email: string
+  is_active: boolean
+  profile_data: ProfileData
+}
 
-export default function Profile() {
+export default function Profile({ params }: { params: { id: string } }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [modalDescription, setModalDescription] = useState('')
+  const [userData, setUserData] = useState<UserData | null>(null)
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
+  const [fullName, setFullName] = useState<string>('')
+
+  const handleCloseModal = () => {
+    setIsOpen(false)
+  }
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      const response = await apiService.get(`/users/${params.id}/`)
+      const errors = response.errors
+      setUserData(response)
+      setModalDescription('')
+      setProfileImageUrl(
+        `${process.env.NEXT_PUBLIC_URL}${response.profile_data.profile_image}`
+      )
+      setFullName(
+        response.profile_data.first_name + ' ' + response.profile_data.last_name
+      )
+
+      if (errors) {
+        setModalDescription(errors.join(', '))
+      }
+    }
+    fetchProfileData()
+  }, [params.id])
+
   return (
     <div>
+      {isOpen && (
+        <ModalMessage
+          title="Erro"
+          description={modalDescription}
+          icon="critical"
+          onClose={handleCloseModal}
+        />
+      )}
+      <Header label={fullName} showBackArrow />
       {/* images */}
-      <div className="relative h-72 w-full pt-4">
+      <div className="relative h-48 w-full">
         <Image
           id="cover"
           src="https://picsum.photos/1920/1080"
-          alt="fundo aleatório"
+          alt={'fundo aleatório'}
           width={1920}
           height={1080}
-          className="h-full w-full rounded-3xl object-cover"
+          className="h-full w-full object-cover"
         />
         <Image
           id="profile"
-          src={defaultProfilePicture}
-          alt="Nome do usuário"
-          width={200}
-          height={200}
-          className="absolute left-0 right-0 top-52 m-auto h-40 w-40 rounded-full object-cover"
+          src={profileImageUrl || defaultProfilePicture}
+          alt={`Foto de ${userData?.profile_data?.first_name}`}
+          width={100}
+          height={100}
+          className="absolute left-5 top-[115px] h-40 w-40 rounded-full object-cover"
         />
       </div>
       {/* user data */}
       <div className="p-4">
-        <div className="mb-4 flex h-60 items-center justify-between rounded-2xl bg-gray-300 px-12 shadow-md dark:bg-gray-700">
+        <div className="mb-4 flex items-center justify-between rounded-2xl bg-gray-300 shadow-md dark:bg-gray-900">
           {/* left side */}
           <div className="flex flex-1 gap-4">
-            <Link href="#">
+            <a href={`mailto:${userData?.email}`}>
               <Mail />
-            </Link>
+            </a>
           </div>
           {/* center */}
           <div className="flex flex-1 flex-col items-center gap-2">
-            <span className="text-3xl">John Doe</span>
+            <span className="text-2xl">{fullName}</span>
             <div className="flex w-full items-center justify-center text-xs">
               <MapPin />
-              <span>Cidade do Usuário</span>
+              <span>{userData?.profile_data?.lives_in}</span>
             </div>
             <Button className="cursor-pointer rounded-xl border-none bg-blue-600 px-4 py-2 text-xs hover:bg-blue-900">
               Seguir
