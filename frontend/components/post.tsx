@@ -66,16 +66,16 @@ export const Post: React.FC<PostProps> = ({
         {/* info */}
         <div className="flex items-center gap-5">
           <div className="flex cursor-pointer items-center gap-2 text-xs">
-            {liked ? <Heart fill="red" /> : <Heart />} 12 likes
+            {liked ? <Heart fill="red" /> : <Heart />} 12
           </div>
           <div
             className="flex cursor-pointer items-center gap-2 text-xs"
             onClick={() => setCommentOpen(!commentOpen)}
           >
-            <MessageSquareMore /> 12 comentários
+            <MessageSquareMore /> 12
           </div>
           <div className="flex cursor-pointer items-center gap-2 text-xs">
-            <Share2 /> Compartilhar
+            <Share2 />
           </div>
         </div>
         {/* comments */}
