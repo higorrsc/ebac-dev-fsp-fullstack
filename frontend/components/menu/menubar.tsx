@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   HomeIcon,
   BellIcon,
@@ -11,17 +11,27 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
+import { MenuItem } from '@/components/menu/menuitem'
 import logo from '@/images/logo-h.png'
-import { MenuItem } from '@/components/menuitem'
+import { getUserId } from '@/lib/actions'
 
 export default function MenuBar() {
   const router = useRouter()
+  const [userId, setUserId] = useState<string | null>(null)
+
+  useEffect(() => {
+    ;(async () => {
+      const gUserId = await getUserId()
+      setUserId(gUserId)
+    })()
+  })
+
   const menuItems = [
     {
       icon: HomeIcon,
       label: 'Página inicial',
       href: '/',
-      onClick: () => {}
+      onClick: () => router.push('/')
     },
     {
       icon: BellIcon,
@@ -32,8 +42,8 @@ export default function MenuBar() {
     {
       icon: UserIcon,
       label: 'Perfil',
-      href: '/profile/1',
-      onClick: () => {}
+      href: '#',
+      onClick: () => router.push(`/profile/${userId}`)
     },
     {
       icon: LogOutIcon,
