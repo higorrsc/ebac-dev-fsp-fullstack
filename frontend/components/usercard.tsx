@@ -43,12 +43,12 @@ export const UserCard: React.FC<UserCardProps> = ({
             <>
               {inPost ? (
                 <div className="flex flex-col">
-                  <span className="font-medium">{username}</span>
+                  <span className="text-sm font-medium">{username}</span>
                   {activity && <span className="text-[10px]">{activity}</span>}
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <span className="font-medium">{username}</span>
+                  <span className="text-xs font-medium">{username}</span>
                   {activity && <span className="text-[10px]">{activity}</span>}
                 </div>
               )}
