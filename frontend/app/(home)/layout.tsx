@@ -28,27 +28,33 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex h-screen w-full overflow-hidden sm:container">
-            {/* <!-- Sidebar --> */}
-            <div className="flex w-12 flex-col sm:w-64">
+          <div className="h-screen">
+            <div className="lg:px-30 container mx-auto h-full max-w-6xl p-0">
+              <div className="grid h-full grid-cols-4">
+                <MenuBar />
+                <div className="col-span-3 border-x-[1px] border-neutral-800 pr-1 lg:col-span-2 lg:pr-0">
+                  {children}
+                </div>
+                <SideBar />
+              </div>
+            </div>
+          </div>
+          {/* <div className="relative flex h-screen w-full overflow-hidden sm:container">
+            <div className="flex w-12 flex-col sm:w-72">
               <MenuBar />
             </div>
 
             <div className="flex h-full w-full flex-col justify-between">
-              {/* <!-- Header --> */}
               <Header />
 
-              {/* <!-- Main --> */}
               <main className="relative flex h-full max-w-full overflow-y-hidden">
-                {/* <!-- Container --> */}
                 <div className="no-scrollbar flex h-full w-full auto-cols-max grid-flow-col flex-wrap items-start justify-start gap-4 overflow-y-scroll rounded-tl">
-                  {/* <!-- Container --> */}
                   {children}
                 </div>
                 <SideBar />
               </main>
             </div>
-          </div>
+          </div> */}
         </ThemeProvider>
       </body>
     </html>

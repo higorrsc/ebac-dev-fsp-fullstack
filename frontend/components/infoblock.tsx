@@ -7,9 +7,9 @@ type InfoBlockProps = {
 
 const InfoBlock = ({ title, children }: InfoBlockProps) => {
   return (
-    <div className="flex flex-col gap-2 rounded-xl bg-gray-300 p-2 shadow-md dark:bg-gray-700">
-      <p className="pb-2">{title}</p>
-      {children}
+    <div className="rounded-xl bg-gray-300 p-4 shadow-md dark:bg-gray-700">
+      <p className="text-xl font-semibold">{title}</p>
+      <div className="mt-4 flex flex-col gap-6">{children}</div>
     </div>
   )
 }

@@ -1,146 +1,74 @@
-import React from 'react'
-import Link from 'next/link'
-import { HomeIcon } from 'lucide-react'
+'use client'
 
-import defaultUserImage from '@/images/profile/default-user.png'
-import iconCalendar from '@/images/icons/calendar.png'
-import iconCourses from '@/images/icons/courses.png'
-import iconFriends from '@/images/icons/friends.png'
-import iconFundraiser from '@/images/icons/fundraiser.png'
-import iconGallery from '@/images/icons/gallery.png'
-import iconGames from '@/images/icons/games.png'
-import iconGroups from '@/images/icons/groups.png'
-import iconMarketplace from '@/images/icons/marketplace.png'
-import iconMemories from '@/images/icons/memories.png'
-import iconMessages from '@/images/icons/messages.png'
-import iconTutorials from '@/images/icons/tutorials.png'
-import iconVideos from '@/images/icons/videos.png'
-import iconWatch from '@/images/icons/watch.png'
+import React from 'react'
+import {
+  HomeIcon,
+  BellIcon,
+  UserIcon,
+  LogOutIcon,
+  StickyNoteIcon
+} from 'lucide-react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
+import logo from '@/images/logo-h.png'
 import { MenuItem } from '@/components/menuitem'
 
 export default function MenuBar() {
+  const router = useRouter()
   const menuItems = [
     {
-      group: '',
-      items: [
-        {
-          image: iconFriends,
-          title: 'Amigos',
-          href: '#',
-          alt: 'ícone de amigos'
-        },
-        {
-          image: iconGroups,
-          title: 'Grupos',
-          href: '#',
-          alt: 'ícone de grupos'
-        },
-        {
-          image: iconMarketplace,
-          title: 'Marketplace',
-          href: '#',
-          alt: 'ícone de marketplace'
-        },
-        {
-          image: iconWatch,
-          title: 'Assista',
-          href: '#',
-          alt: 'ícone de está aleatório'
-        },
-        {
-          image: iconMemories,
-          title: 'Memórias',
-          href: '#',
-          alt: 'ícone de memórias'
-        }
-      ]
+      icon: HomeIcon,
+      label: 'Página inicial',
+      href: '/',
+      onClick: () => {}
     },
     {
-      group: 'Atalhos',
-      items: [
-        {
-          image: iconCalendar,
-          title: 'Calendário',
-          href: '#',
-          alt: 'ícone de calendário'
-        },
-        { image: iconGames, title: 'Jogos', href: '#', alt: 'ícone de jogos' },
-        {
-          image: iconGallery,
-          title: 'Galeria',
-          href: '#',
-          alt: 'ícone de galeria'
-        },
-        {
-          image: iconVideos,
-          title: 'Vídeos',
-          href: '#',
-          alt: 'ícone de vídeos'
-        },
-        {
-          image: iconMessages,
-          title: 'Mensagens',
-          href: '#',
-          alt: 'ícone de mensagens'
-        }
-      ]
+      icon: BellIcon,
+      label: 'Notificações',
+      href: '#',
+      onClick: () => {}
     },
     {
-      group: 'Outros',
-      items: [
-        {
-          image: iconFundraiser,
-          title: 'Fundos',
-          href: '#',
-          alt: 'ícone de levantamento de fundos'
-        },
-        {
-          image: iconTutorials,
-          title: 'Tutoriais',
-          href: '#',
-          alt: 'ícone de tutoriais'
-        },
-        {
-          image: iconCourses,
-          title: 'Cursos',
-          href: '#',
-          alt: 'ícone de cursos'
-        }
-      ]
+      icon: UserIcon,
+      label: 'Perfil',
+      href: '/profile/1',
+      onClick: () => {}
+    },
+    {
+      icon: LogOutIcon,
+      label: 'Sair',
+      href: null,
+      onClick: () => {}
+    },
+    {
+      icon: StickyNoteIcon,
+      label: 'Postar',
+      href: '#',
+      onClick: () => router.push('/')
     }
   ]
   return (
-    <aside className="relative ml-2 flex h-full w-48 flex-col items-start justify-around gap-2">
-      <Link href="/">
-        <h1 className="hidden text-xl font-bold text-slate-700 dark:text-slate-300 sm:flex">
-          Social H
-        </h1>
-        <HomeIcon className="text-center lg:hidden" size={32} />
-      </Link>
-      {menuItems.map((group) => (
-        <div key={group.group} className="flex w-full flex-col gap-2">
-          <hr className="mx-0 my-2 h-[0.5px] w-8 border-none bg-slate-500 sm:w-full" />
-          <span className="hidden text-xs font-semibold sm:flex">
-            {group.group}
-          </span>
-          {group.items.map((item) => (
+    <aside className="col-span-1 h-full pr-4 md:pr-6">
+      <div className="flex flex-col items-end">
+        <div className="space-y-2 lg:w-[230px]">
+          <div
+            className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full p-4 transition"
+            onClick={() => router.push('/')}
+          >
+            <Image src={logo} alt="logo" width={56} height={56} />
+          </div>
+          {menuItems.map((item, idx) => (
             <MenuItem
-              key={item.title}
-              icon={item.image}
-              alt={item.alt}
-              title={item.title}
+              key={idx}
+              icon={item.icon}
+              label={item.label}
               href={item.href}
+              onClick={item.onClick}
             />
           ))}
         </div>
-      ))}
-
-      <MenuItem
-        alt="imagem do usuário"
-        icon={defaultUserImage}
-        title="Usuário logado"
-        href="#"
-      />
+      </div>
     </aside>
   )
 }
