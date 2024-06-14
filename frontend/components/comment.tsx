@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { UserCard } from '@/components/usercard'
+import { Button } from '@/components/ui/button'
 import defaultUser from '@/images/profile/default-user.png'
 import currentUser from '@/images/profile/default-man.png'
-import { Button } from './ui/button'
 
 const Comments = () => {
   const comments = [

@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from 'next/image'
-import React, { useState } from 'react'
 import { Ellipsis, Heart, MessageSquareMore, Share2 } from 'lucide-react'
+import { useState } from 'react'
 
 import Comments from '@/components/comment'
 import { UserCard } from '@/components/usercard'
