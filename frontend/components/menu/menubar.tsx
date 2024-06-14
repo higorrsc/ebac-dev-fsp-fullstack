@@ -22,9 +22,12 @@ export default function MenuBar() {
 
   useEffect(() => {
     ;(async () => {
-      const gUserId = await getUserId()
-      setUserId(gUserId)
-      setRoute(`/profile/${gUserId}`)
+      setUserId(await getUserId())
+      if (!userId) {
+        setRoute('/login')
+      } else {
+        setRoute(`/profile/${userId}`)
+      }
     })()
   }, [userId])
 
@@ -32,6 +35,14 @@ export default function MenuBar() {
     await resetAuthCookies()
     setUserId(null)
     router.push('/login')
+  }
+
+  const handlePost = () => {
+    if (userId) {
+      router.push('/')
+    } else {
+      router.push('/login')
+    }
   }
 
   const menuItems = [
@@ -56,14 +67,14 @@ export default function MenuBar() {
     {
       icon: LogOutIcon,
       label: 'Sair',
-      href: null,
+      href: '#',
       onClick: handleLogout
     },
     {
       icon: StickyNoteIcon,
       label: 'Postar',
       href: '#',
-      onClick: () => router.push('/')
+      onClick: handlePost
     }
   ]
   return (
