@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  HomeIcon,
   BellIcon,
-  UserIcon,
+  FeatherIcon,
+  HomeIcon,
+  LogInIcon,
   LogOutIcon,
-  StickyNoteIcon
+  UserIcon
 } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -49,31 +50,26 @@ export default function MenuBar() {
     {
       icon: HomeIcon,
       label: 'Página inicial',
-      href: '/',
-      onClick: () => router.push('/')
+      href: '/'
     },
     {
       icon: BellIcon,
       label: 'Notificações',
-      href: '#',
-      onClick: () => {}
+      href: '#'
     },
     {
       icon: UserIcon,
       label: 'Perfil',
-      href: '#',
-      onClick: () => router.push(route)
+      href: route
     },
     {
       icon: LogOutIcon,
       label: 'Sair',
-      href: '#',
       onClick: handleLogout
     },
     {
-      icon: StickyNoteIcon,
+      icon: FeatherIcon,
       label: 'Postar',
-      href: '#',
       onClick: handlePost
     }
   ]
@@ -87,15 +83,19 @@ export default function MenuBar() {
           >
             <Image src={logo} alt="logo" width={56} height={56} />
           </div>
-          {menuItems.map((item, idx) => (
-            <MenuItem
-              key={idx}
-              icon={item.icon}
-              label={item.label}
-              href={item.href}
-              onClick={item.onClick}
-            />
-          ))}
+          {userId ? (
+            menuItems.map((item, idx) => (
+              <MenuItem
+                key={idx}
+                icon={item.icon}
+                label={item.label}
+                href={item.href}
+                onClick={item.onClick}
+              />
+            ))
+          ) : (
+            <MenuItem icon={LogInIcon} label="Entrar" href="/login" />
+          )}
         </div>
       </div>
     </aside>
