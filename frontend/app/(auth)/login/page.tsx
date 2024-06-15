@@ -54,12 +54,7 @@ export default function LoginAccount() {
     }
 
     if (response.access && response.refresh) {
-      handleLogin(
-        response.user_id,
-        response.username,
-        response.access,
-        response.refresh
-      )
+      handleLogin(response.access, response.refresh)
       router.push('/')
     } else {
       setIsOpen(true)
