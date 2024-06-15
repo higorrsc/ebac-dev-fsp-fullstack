@@ -1,6 +1,9 @@
+import { getAccessToken } from '@/lib/actions'
+
 const headers = {
   Accept: 'application/json',
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  Authorization: ''
 }
 
 const apiService = {
@@ -19,6 +22,24 @@ const apiService = {
   },
 
   post: async function (url: string, data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data)
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json)
+        })
+        .catch((error) => reject(error))
+    })
+  },
+
+  postWithAuth: async function (url: string, data: any): Promise<any> {
+    const token = await getAccessToken()
+    if (token) headers.Authorization = `Bearer ${token}`
+
     return new Promise((resolve, reject) => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
         method: 'POST',
