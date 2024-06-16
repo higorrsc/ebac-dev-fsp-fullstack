@@ -10,7 +10,7 @@ from posts.models import Post
 
 # Create your views here.
 class VoteViewSet(viewsets.ModelViewSet):
-    queryset = Vote.objects.all()
+    queryset = Vote.objects.all().order_by("id")
     serializer_class = VoteSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, hasSelfVotedOrReadOnly]
 

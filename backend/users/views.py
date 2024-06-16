@@ -9,7 +9,7 @@ from .serializers import UserSerializer
 # Create your views here.
 class UserViewSet(viewsets.ViewSet):
     def list(self, request):
-        queryset = User.objects.all()
+        queryset = User.objects.all().order_by("id")
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
 

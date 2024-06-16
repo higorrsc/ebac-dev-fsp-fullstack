@@ -7,7 +7,7 @@ from .serializers import ProfileSerializer
 
 # Create your views here.
 class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
+    queryset = UserProfile.objects.all().order_by("id")
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 

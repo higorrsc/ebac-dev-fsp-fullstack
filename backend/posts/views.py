@@ -9,7 +9,7 @@ from user_profile.permissions import IsOwnerOrReadOnly
 
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by("id")
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 

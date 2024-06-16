@@ -40,7 +40,7 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
         else:
             pass
 
-        return User.objects.filter(id__in=result).values()
+        return User.objects.filter(id__in=result).values().order_by("id")
 
     def get_object(self, pk):
         user = self.request.user.pk
@@ -56,7 +56,7 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     def list(self, request):
-        friends = self.get_queryset()
+        friends = self.get_queryset().order_by("id")
         serializer = UserSerializer(friends, many=True)
         return Response(serializer.data)
 
