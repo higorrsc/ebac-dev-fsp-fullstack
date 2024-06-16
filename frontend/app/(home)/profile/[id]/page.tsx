@@ -11,6 +11,7 @@ import ModalMessage from '@/components/modalmessage'
 import Header from '@/components/header'
 import defaultProfilePicture from '@/images/profile/default-user.png'
 import { User } from '@/lib/types'
+import UserHero from '@/components/userhero'
 
 export default function Profile({ params }: { params: { id: string } }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -61,24 +62,12 @@ export default function Profile({ params }: { params: { id: string } }) {
         showBackArrow
       />
       {/* images */}
-      <div className="relative h-48 w-full">
-        <Image
-          id="cover"
-          src="https://picsum.photos/1920/1080"
-          alt={'fundo aleatório'}
-          width={1920}
-          height={1080}
-          className="h-full w-full object-cover"
-        />
-        <Image
-          id="profile"
-          src={userData?.profile_data?.profile_image || defaultProfilePicture}
-          alt={`Foto de ${userData?.profile_data?.first_name}`}
-          width={100}
-          height={100}
-          className="absolute left-5 top-[115px] h-40 w-40 rounded-full object-cover"
-        />
-      </div>
+      <UserHero
+        userProfileImage={
+          userData?.profile_data?.profile_image || defaultProfilePicture
+        }
+        profileImageAlt={`Foto de ${userData?.profile_data?.first_name}`}
+      />
       {/* user data */}
       <div className="mb-4 flex flex-col items-start bg-gray-300 py-4 shadow-md dark:bg-gray-900">
         <div className="grid w-full grid-cols-3">
