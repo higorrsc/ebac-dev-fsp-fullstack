@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 type UserCardProps = {
   id: number
   username: string
-  image: StaticImageData
+  image: string | StaticImageData
   alt: string
   activity?: string
   time?: string
@@ -37,7 +37,7 @@ export const UserCard: React.FC<UserCardProps> = ({
             alt={alt}
             width={32}
             height={32}
-            className="rounded-full object-cover"
+            className="h-auto w-auto rounded-full object-cover"
           />
           {!onlyImage && (
             <>
