@@ -6,4 +6,4 @@ O projeto é separado em backend em Django com Django Rest Framework e frontend 
 
 ## Autor
 
--   [@higorrsc](https://www.github.com/higorrsc)
+- [@higorrsc](https://www.github.com/higorrsc)
