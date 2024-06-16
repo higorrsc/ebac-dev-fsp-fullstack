@@ -40,6 +40,7 @@ export const Post: React.FC<PostProps> = ({
         {/* user */}
         <div className="flex items-center justify-between">
           <UserCard
+            key={id}
             id={userId}
             image={defaultUser}
             alt="imagem do usuário"
