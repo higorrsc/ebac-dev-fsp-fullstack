@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 
