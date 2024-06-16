@@ -7,7 +7,8 @@ import {
   HomeIcon,
   LogInIcon,
   LogOutIcon,
-  UserIcon
+  UserIcon,
+  UserPlusIcon
 } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -18,7 +19,7 @@ import { getUserId, resetAuthCookies } from '@/lib/actions'
 
 export default function MenuBar() {
   const router = useRouter()
-  const [userId, setUserId] = useState<string | null>(null)
+  const [userId, setUserId] = useState<number | null>(null)
   const [route, setRoute] = useState<string>('/login')
 
   useEffect(() => {
@@ -94,7 +95,14 @@ export default function MenuBar() {
               />
             ))
           ) : (
-            <MenuItem icon={LogInIcon} label="Entrar" href="/login" />
+            <>
+              <MenuItem icon={LogInIcon} label="Fazer login" href="/login" />
+              <MenuItem
+                icon={UserPlusIcon}
+                label="Criar conta"
+                href="/signup"
+              />
+            </>
           )}
         </div>
       </div>

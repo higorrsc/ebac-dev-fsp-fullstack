@@ -34,7 +34,7 @@ export async function getUserId() {
   if (!token) return null
 
   const payload = jwtDecode<ExtendedJwtPayload>(token)
-  const userId = payload.user_id
+  const userId = Number(payload.user_id)
   return userId ? userId : null
 }
 
