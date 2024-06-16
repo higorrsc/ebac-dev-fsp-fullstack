@@ -23,7 +23,7 @@ type FormData = z.infer<typeof loginSchema>
 export default function LoginAccount() {
   const [isOpen, setIsOpen] = useState(false)
   const [modalDescription, setModalDescription] = useState('')
-  const [userId, setUserId] = useState<string | null>('')
+  const [userId, setUserId] = useState<number | null>(null)
 
   const router = useRouter()
 
