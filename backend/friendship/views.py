@@ -132,7 +132,7 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
         else:
             pass
 
-        find_friends = User.objects.exclude(id__in=result)
+        find_friends = User.objects.exclude(id__in=result).order_by("id")
         serializer = UserSerializer(find_friends, many=True)
         return Response(serializer.data)
 
