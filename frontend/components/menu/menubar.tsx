@@ -16,21 +16,32 @@ import { useRouter } from 'next/navigation'
 import { MenuItem } from '@/components/menu/menuitem'
 import logo from '@/images/logo-h.png'
 import { getUserId, resetAuthCookies } from '@/lib/actions'
+import apiService from '@/app/services/apiService'
 
 export default function MenuBar() {
   const router = useRouter()
   const [userId, setUserId] = useState<number | null>(null)
   const [route, setRoute] = useState<string>('/login')
+  const [notification, setNotification] = useState<number>(0)
 
   useEffect(() => {
-    ;(async () => {
+    const fetchNotification = async () => {
+      const response = await apiService.getWithAuth(
+        '/friendship/incoming_requests'
+      )
+      const data = response
+      if (data) setNotification(data.length)
+    }
+    const fetchUserId = async () => {
       setUserId(await getUserId())
       if (!userId) {
         setRoute('/login')
       } else {
         setRoute(`/profile/${userId}`)
       }
-    })()
+    }
+    fetchNotification()
+    fetchUserId()
   }, [userId])
 
   const handleLogout = async () => {
@@ -56,7 +67,8 @@ export default function MenuBar() {
     {
       icon: BellIcon,
       label: 'Notificações',
-      href: '#'
+      href: '#',
+      notification: notification
     },
     {
       icon: UserIcon,
@@ -91,6 +103,7 @@ export default function MenuBar() {
                 icon={item.icon}
                 label={item.label}
                 href={item.href}
+                notification={item.notification}
                 onClick={item.onClick}
               />
             ))
