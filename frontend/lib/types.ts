@@ -1,6 +1,8 @@
 export type User = {
   id: number
   username: string
+  first_name: string
+  last_name: string
   email: string
   is_active: boolean
   profile_data?: Profile | null
@@ -9,10 +11,8 @@ export type User = {
 export type Profile = {
   id: number
   owner: string
-  first_name: string | null
-  last_name: string | null
-  gender: string | null
-  dob: string | null
+  gender: string
+  dob: Date
   phone: string | null
   works_at: string | null
   lives_in: string | null
@@ -26,7 +26,7 @@ export type Post = {
   content: string
   post_image: string | null
   category: string | null
-  post_date: string
+  post_date: Date
   comments?: Comment[]
   votes?: Vote[]
 }
@@ -35,7 +35,7 @@ export type Comment = {
   id: number
   comment: string
   comment_image: string | null
-  comment_date: string
+  comment_date: Date
   commented_by: string
   post: number
 }
