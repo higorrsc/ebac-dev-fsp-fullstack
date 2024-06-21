@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { Mail, MapPin, MoreVerticalIcon } from 'lucide-react'
+import { format } from 'date-fns'
 
 import apiService from '@/app/services/apiService'
 import { Button } from '@/components/ui/button'
@@ -32,16 +32,16 @@ export default function Profile({ params }: { params: { id: string } }) {
         setModalDescription(errors.join(', '))
       } else {
         const data: User = response
-        if (data.profile_data) {
-          const updatedData = {
-            ...data,
-            profile_data: {
-              ...data.profile_data,
-              profile_image: `${process.env.NEXT_PUBLIC_URL}${data.profile_data.profile_image}`
-            }
+        const updatedData: User = {
+          ...data,
+          profile_data: {
+            ...data.profile_data,
+            profile_image:
+              data.profile_data?.profile_image &&
+              `${process.env.NEXT_PUBLIC_URL}${data.profile_data.profile_image}`
           }
-          setUserData(updatedData)
         }
+        setUserData(updatedData)
       }
     }
     fetchProfileData()
@@ -58,7 +58,7 @@ export default function Profile({ params }: { params: { id: string } }) {
         />
       )}
       <Header
-        label={`${userData?.profile_data?.first_name} ${userData?.profile_data?.last_name}`}
+        label={`${userData?.first_name} ${userData?.last_name}`}
         showBackArrow
       />
       {/* images */}
@@ -66,15 +66,18 @@ export default function Profile({ params }: { params: { id: string } }) {
         userProfileImage={
           userData?.profile_data?.profile_image || defaultProfilePicture
         }
-        profileImageAlt={`Foto de ${userData?.profile_data?.first_name}`}
+        profileImageAlt={`Foto de ${userData?.first_name}`}
       />
       {/* user data */}
       <div className="mb-4 flex flex-col items-start bg-gray-300 py-4 shadow-md dark:bg-gray-900">
         <div className="grid w-full grid-cols-3">
           <div className="col-span-2 flex flex-col px-4 pt-20">
-            <span className="text-2xl">{`${userData?.profile_data?.first_name} ${userData?.profile_data?.last_name}`}</span>
+            <span className="text-2xl">{`${userData?.first_name} ${userData?.last_name}`}</span>
             <span className="text-sm">{userData?.username}</span>
-            <span className="text-sm">{userData?.profile_data?.dob}</span>
+            <span className="text-sm">
+              {userData?.profile_data?.dob &&
+                format(userData?.profile_data?.dob, 'dd/MM/yyyy')}
+            </span>
           </div>
           <div className="w-full">
             <div className="flex items-center justify-end gap-4 p-4">
@@ -88,8 +91,12 @@ export default function Profile({ params }: { params: { id: string } }) {
             </div>
             <div className="flex w-full flex-col items-center justify-end p-4 text-xs">
               <div className="flex w-full items-center justify-end">
-                <MapPin />
-                <span>{userData?.profile_data?.lives_in}</span>
+                {userData?.profile_data?.lives_in && (
+                  <>
+                    <MapPin />
+                    <span>{userData?.profile_data?.lives_in}</span>
+                  </>
+                )}
               </div>
               <div className="flex w-full items-center justify-end">
                 <span>{userData?.profile_data?.studies_at}</span>

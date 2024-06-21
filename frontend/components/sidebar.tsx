@@ -26,7 +26,11 @@ export default function SideBar() {
         }
         const data = response
         const updatedData = data.map(
-          (user: { profile_data: { profile_image?: string } }) => ({
+          (user: {
+            profile_data: {
+              profile_image?: string
+            }
+          }) => ({
             ...user,
             profile_data: {
               ...user.profile_data,
@@ -36,19 +40,7 @@ export default function SideBar() {
             }
           })
         )
-        updatedData.sort(
-          (
-            a: { profile_data: { first_name: { toLowerCase: () => number } } },
-            b: { profile_data: { first_name: { toLowerCase: () => number } } }
-          ) =>
-            a.profile_data?.first_name?.toLowerCase() <
-            b.profile_data?.first_name?.toLowerCase()
-              ? -1
-              : a.profile_data?.first_name?.toLowerCase() >
-                  b.profile_data?.first_name?.toLowerCase()
-                ? 1
-                : 0
-        )
+
         setUsersProfile(updatedData)
       }
     }
@@ -64,13 +56,9 @@ export default function SideBar() {
               <UserCard
                 key={user.id}
                 id={user.id}
-                image={user?.profile_data?.profile_image || defaultUser}
+                image={user.profile_data?.profile_image || defaultUser}
                 alt="imagem do usuário"
-                username={
-                  user?.profile_data?.first_name +
-                    ' ' +
-                    user?.profile_data?.last_name || user?.username
-                }
+                username={user.first_name + ' ' + user.last_name}
                 follow
               />
             ) : null
