@@ -1,5 +1,6 @@
 import Image, { StaticImageData } from 'next/image'
 import React from 'react'
+import { SwitchCamera } from 'lucide-react'
 
 type UserHeroProps = {
   userProfileImage: string | StaticImageData
@@ -22,13 +23,16 @@ export default function UserHero({
       <Image
         id="profile"
         src={userProfileImage}
-        // {userData?.profile_data?.profile_image || defaultProfilePicture}
         alt={profileImageAlt}
-        // {`Foto de ${userData?.profile_data?.first_name}`}
         width={100}
         height={100}
-        className="absolute left-5 top-[115px] h-40 w-40 rounded-full object-cover"
+        className="absolute left-5 top-[115px] h-40 w-40 rounded-full border-4 border-black object-cover"
       />
+      <div className="absolute left-32 top-56 flex flex-row items-center">
+        <div className="relative flex cursor-pointer items-center justify-center gap-4 rounded-full bg-slate-500 bg-opacity-30 p-4 hover:bg-slate-900 hover:bg-opacity-50">
+          <SwitchCamera size={18} />
+        </div>
+      </div>
     </div>
   )
 }
