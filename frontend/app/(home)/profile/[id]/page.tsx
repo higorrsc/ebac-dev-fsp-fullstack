@@ -9,14 +9,16 @@ import { Button } from '@/components/ui/button'
 import PostBar from '@/components/posts/postbar'
 import ModalMessage from '@/components/modalmessage'
 import Header from '@/components/header'
-import defaultProfilePicture from '@/images/profile/default-user.png'
-import { User } from '@/lib/types'
 import UserHero from '@/components/userhero'
+import defaultProfilePicture from '@/images/profile/default-user.png'
+import { getUserId } from '@/lib/actions'
+import { User } from '@/lib/types'
 
-export default function Profile({ params }: { params: { id: string } }) {
+export default function Profile({ params }: { params: { id: number } }) {
   const [isOpen, setIsOpen] = useState(false)
   const [modalDescription, setModalDescription] = useState('')
   const [userData, setUserData] = useState<User | null>(null)
+  const [userId, setUserId] = useState<number | null>(null)
 
   const handleCloseModal = () => {
     setIsOpen(false)
@@ -24,6 +26,7 @@ export default function Profile({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const fetchProfileData = async () => {
+      setUserId(await getUserId())
       const response = await apiService.get(`/users/${params.id}/`)
       const errors = response.errors
       setModalDescription('')
@@ -67,6 +70,7 @@ export default function Profile({ params }: { params: { id: string } }) {
           userData?.profile_data?.profile_image || defaultProfilePicture
         }
         profileImageAlt={`Foto de ${userData?.first_name}`}
+        loginUserProfile={params.id == userId}
       />
       {/* user data */}
       <div className="mb-4 flex flex-col items-start bg-gray-300 py-4 shadow-md dark:bg-gray-900">

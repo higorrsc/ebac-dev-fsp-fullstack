@@ -5,10 +5,12 @@ import { SwitchCamera } from 'lucide-react'
 type UserHeroProps = {
   userProfileImage: string | StaticImageData
   profileImageAlt: string
+  loginUserProfile: boolean
 }
 export default function UserHero({
   userProfileImage,
-  profileImageAlt
+  profileImageAlt,
+  loginUserProfile
 }: UserHeroProps) {
   return (
     <div className="relative h-48 w-full">
@@ -28,11 +30,13 @@ export default function UserHero({
         height={100}
         className="absolute left-5 top-[115px] h-40 w-40 rounded-full border-4 border-black object-cover"
       />
-      <div className="absolute left-32 top-56 flex flex-row items-center">
-        <div className="relative flex cursor-pointer items-center justify-center gap-4 rounded-full bg-slate-500 bg-opacity-30 p-4 hover:bg-slate-900 hover:bg-opacity-50">
-          <SwitchCamera size={18} />
+      {loginUserProfile && (
+        <div className="absolute left-32 top-56 flex flex-row items-center">
+          <div className="relative flex cursor-pointer items-center justify-center gap-4 rounded-full bg-slate-500 bg-opacity-30 p-4 hover:bg-slate-900 hover:bg-opacity-50">
+            <SwitchCamera size={18} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
