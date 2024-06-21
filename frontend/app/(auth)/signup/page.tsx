@@ -14,6 +14,12 @@ import { getUserId } from '@/lib/actions'
 const registerUserSchema = z
   .object({
     email: z.string().email({ message: 'O e-mail deve ser preenchido' }),
+    firstName: z.string().trim().min(1, {
+      message: 'O nome deve ser preenchido'
+    }),
+    lastName: z.string().trim().min(1, {
+      message: 'O sobrenome deve ser preenchido'
+    }),
     username: z.string().trim().min(5, {
       message: 'O nome de usuário deve ter no mínimo 5 caracteres'
     }),
@@ -61,6 +67,8 @@ export default function SignUp() {
 
   const submitSignUp = async (data: FormData) => {
     const userData = {
+      first_name: data.firstName,
+      last_name: data.lastName,
       email: data.email,
       username: data.username,
       password: data.password
@@ -125,6 +133,26 @@ export default function SignUp() {
               onSubmit={handleSubmit(submitSignUp)}
               className="flex flex-col gap-4 text-xs md:text-sm"
             >
+              <input
+                type="text"
+                id="firstName"
+                placeholder="Primeiro nome"
+                className="w-full border-b-2 bg-transparent p-2 outline-none"
+                {...register('firstName')}
+              />
+              {errors.firstName && (
+                <p className="text-red-500">{errors.firstName?.message}</p>
+              )}
+              <input
+                type="text"
+                id="firstName"
+                placeholder="Último nome"
+                className="w-full border-b-2 bg-transparent p-2 outline-none"
+                {...register('lastName')}
+              />
+              {errors.lastName && (
+                <p className="text-red-500">{errors.lastName?.message}</p>
+              )}
               <input
                 type="email"
                 id="email"
