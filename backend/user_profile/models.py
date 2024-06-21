@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserProfile(models.Model):
-    options = (("male", "Male"), ("female", "Female"), ("other", "Other"))
+    options = (
+        ("male", "Masculino"),
+        ("female", "Feminino"),
+        ("other", "Não Informado"),
+    )
     owner = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="profile_data"
     )
-    first_name = models.CharField(max_length=150, null=True, blank=True)
-    last_name = models.CharField(max_length=150, null=True, blank=True)
     gender = models.CharField(
         max_length=20,
         choices=options,
@@ -17,7 +19,7 @@ class UserProfile(models.Model):
         null=False,
         blank=False,
     )
-    dob = models.DateField(null=True, blank=True, default=None)
+    dob = models.DateField(null=False, blank=False, default=None)
     phone = models.CharField(max_length=20, null=True, blank=True)
     works_at = models.CharField(max_length=200, null=True, blank=True)
     lives_in = models.CharField(max_length=200, null=True, blank=True)
