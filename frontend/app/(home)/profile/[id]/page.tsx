@@ -13,16 +13,25 @@ import UserHero from '@/components/userhero'
 import defaultProfilePicture from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { User } from '@/lib/types'
+import UserProfile from '@/components/userprofile'
 
 export default function Profile({ params }: { params: { id: number } }) {
   const [isOpen, setIsOpen] = useState(false)
   const [modalDescription, setModalDescription] = useState('')
   const [userData, setUserData] = useState<User | null>(null)
   const [userId, setUserId] = useState<number | null>(null)
+  const [isMyProfile, setIsMyProfile] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
 
   const handleCloseModal = () => {
     setIsOpen(false)
   }
+
+  const handleMyProfile = () => {
+    setIsProfileOpen(false)
+  }
+
+  const handleFollow = async () => {}
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -34,6 +43,7 @@ export default function Profile({ params }: { params: { id: number } }) {
       if (errors) {
         setModalDescription(errors.join(', '))
       } else {
+        setIsMyProfile(params.id == userId)
         const data: User = response
         const updatedData: User = {
           ...data,
@@ -48,7 +58,7 @@ export default function Profile({ params }: { params: { id: number } }) {
       }
     }
     fetchProfileData()
-  }, [params.id])
+  }, [params.id, userId])
 
   return (
     <div>
@@ -60,6 +70,7 @@ export default function Profile({ params }: { params: { id: number } }) {
           onClose={handleCloseModal}
         />
       )}
+      {isProfileOpen && <UserProfile onClose={handleMyProfile} />}
       <Header
         label={`${userData?.first_name} ${userData?.last_name}`}
         showBackArrow
@@ -88,9 +99,18 @@ export default function Profile({ params }: { params: { id: number } }) {
               <a href={`mailto:${userData?.email}`}>
                 <Mail />
               </a>
-              <Button className="cursor-pointer rounded-xl border-none bg-blue-600 text-xs hover:bg-blue-900">
-                Seguir
-              </Button>
+              {isMyProfile ? (
+                <Button
+                  className="cursor-pointer rounded-xl border-none bg-blue-600 text-xs hover:bg-blue-900"
+                  onClick={() => setIsProfileOpen(true)}
+                >
+                  Editar
+                </Button>
+              ) : (
+                <Button className="cursor-pointer rounded-xl border-none bg-blue-600 text-xs hover:bg-blue-900">
+                  Seguir
+                </Button>
+              )}
               <MoreVerticalIcon />
             </div>
             <div className="flex w-full flex-col items-center justify-end p-4 text-xs">
