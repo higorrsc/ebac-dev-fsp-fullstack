@@ -26,9 +26,13 @@ export default function MenuBar() {
 
   useEffect(() => {
     const fetchNotification = async () => {
+      setUserId(await getUserId())
+      if (!userId) return
+
       const response = await apiService.getWithAuth(
         '/friendship/incoming_requests'
       )
+
       const data = response
       if (data) setNotification(data.length)
     }
