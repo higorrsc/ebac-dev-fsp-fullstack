@@ -43,22 +43,24 @@ export async function revalidateAccessToken() {
   if (!token) return null
 
   const payload = jwtDecode<ExtendedJwtPayload>(token)
-  const currentTimestamp = Math.floor(Date.now() / 1000) // Current time in Unix time
+  const currentTimestamp = Math.floor(Date.now() / 1000)
   const tokenExpiration = payload.exp
 
-  if (currentTimestamp >= tokenExpiration) {
-    const data = {
-      refresh: cookies().get('session_refresh_token')?.value
-    }
-    if (!data) return null
+  if (tokenExpiration) {
+    if (currentTimestamp >= tokenExpiration) {
+      const data = {
+        refresh: cookies().get('session_refresh_token')?.value
+      }
+      if (!data) return null
 
-    const response = await apiService.post('/token/refresh/', data)
-    const errors = response.errors
+      const response = await apiService.post('/token/refresh/', data)
+      const errors = response.errors
 
-    if (errors) return errors
+      if (errors) return errors
 
-    if (response.access && response.refresh) {
-      handleLogin(response.access, response.refresh)
+      if (response.access && response.refresh) {
+        handleLogin(response.access, response.refresh)
+      }
     }
   }
 
