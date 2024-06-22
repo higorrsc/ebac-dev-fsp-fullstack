@@ -16,15 +16,14 @@ export default function SideBar() {
   useEffect(() => {
     const fetchData = async () => {
       setUserId(await getUserId())
-      if (userId) {
-        const response = await apiService.getWithAuth(
-          `/friendship/find_friends/`
-        )
-        const errors = response.errors
-        if (errors) {
-          return
-        }
-        const data = response
+      if (!userId) return
+
+      const response = await apiService.getWithAuth(`/friendship/find_friends/`)
+      const errors = response.errors
+      if (errors) return
+
+      const data = response
+      if (data) {
         const updatedData = data.map(
           (user: {
             profile_data: {
@@ -40,7 +39,6 @@ export default function SideBar() {
             }
           })
         )
-
         setUsersProfile(updatedData)
       }
     }
@@ -64,12 +62,18 @@ export default function SideBar() {
             ) : null
           )}
         </InfoBlock>
-      ) : (
+      ) : !userId ? (
         <InfoBlock title="Novo no Social H?">
           <div className="mt-4 flex flex-col items-center justify-center gap-6 text-xs md:text-sm">
             <span>
               Inscreva-se para ter sua própria timeline personalizada!
             </span>
+          </div>
+        </InfoBlock>
+      ) : (
+        <InfoBlock title="Convide seus amigos">
+          <div className="mt-4 flex flex-col items-center justify-center gap-6 text-xs md:text-sm">
+            <span>Convide seus amigos a se juntarem a você na Social H</span>
           </div>
         </InfoBlock>
       )}
