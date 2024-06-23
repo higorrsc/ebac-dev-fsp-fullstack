@@ -37,6 +37,7 @@ export type Comment = {
   comment_image: string | null
   comment_date: Date
   commented_by: string
+  owner: number
   post: number
 }
 
