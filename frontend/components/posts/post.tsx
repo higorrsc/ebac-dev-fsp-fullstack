@@ -2,14 +2,15 @@ import Image from 'next/image'
 import { Ellipsis, Heart, MessageSquareMore, Share2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import { Comments } from '@/components/posts/postcomment'
 import { UserCard } from '@/components/usercard'
 import defaultUser from '@/images/profile/default-user.png'
 import { Post as PostType } from '@/lib/types'
-import Comments from '@/components/posts/postcomment'
 
 type PostProps = {
   post: PostType
 }
+
 export const Post: React.FC<PostProps> = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false)
   const [commentsQty, setCommentsQty] = useState(0)
