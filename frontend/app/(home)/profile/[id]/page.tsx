@@ -5,10 +5,10 @@ import { Mail, MapPin, MoreVerticalIcon } from 'lucide-react'
 import { format } from 'date-fns'
 
 import apiService from '@/app/services/apiService'
-import { Button } from '@/components/ui/button'
-import PostBar from '@/components/posts/postbar'
-import ModalMessage from '@/components/modalmessage'
 import Header from '@/components/header'
+import ModalMessage from '@/components/modalmessage'
+import PostBar from '@/components/posts/postbar'
+import { Button } from '@/components/ui/button'
 import UserHero from '@/components/userhero'
 import defaultProfilePicture from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
@@ -16,7 +16,7 @@ import { User } from '@/lib/types'
 import UserProfile from '@/components/userprofile'
 
 export default function Profile({ params }: { params: { id: number } }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalDescription, setModalDescription] = useState('')
   const [userData, setUserData] = useState<User | null>(null)
   const [userId, setUserId] = useState<number | null>(null)
@@ -24,7 +24,7 @@ export default function Profile({ params }: { params: { id: number } }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
 
   const handleCloseModal = () => {
-    setIsOpen(false)
+    setIsModalOpen(false)
   }
 
   const handleMyProfile = () => {
@@ -61,8 +61,8 @@ export default function Profile({ params }: { params: { id: number } }) {
   }, [params.id, userId])
 
   return (
-    <div>
-      {isOpen && (
+    <>
+      {isModalOpen && (
         <ModalMessage
           title="Erro"
           description={modalDescription}
@@ -130,7 +130,7 @@ export default function Profile({ params }: { params: { id: number } }) {
         </div>
       </div>
       {/* posts */}
-      <PostBar />
-    </div>
+      <PostBar userId={params.id} />
+    </>
   )
 }
