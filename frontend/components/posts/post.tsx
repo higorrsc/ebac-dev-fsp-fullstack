@@ -1,11 +1,14 @@
+'use client'
+
 import Image from 'next/image'
-import { Ellipsis, Heart, MessageSquareMore, Share2 } from 'lucide-react'
+import { Ellipsis, Heart, MessageSquareMore } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-import { Comments } from '@/components/posts/postcomment'
+import apiService from '@/app/services/apiService'
+import { PostComments } from '@/components/posts/postcomment'
 import { UserCard } from '@/components/usercard'
 import defaultUser from '@/images/profile/default-user.png'
-import { Post as PostType } from '@/lib/types'
+import { Post as PostType, User } from '@/lib/types'
 
 type PostProps = {
   post: PostType
@@ -15,19 +18,38 @@ export const Post: React.FC<PostProps> = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false)
   const [commentsQty, setCommentsQty] = useState(0)
   const [upVotesQty, setUpVotesQty] = useState(0)
+  const [userProfile, setUserProfile] = useState<User | null>(null)
 
   useEffect(() => {
-    if (post.votes) {
-      const allVotes = post.votes
-      allVotes.map((vote) => {
-        if (vote.up_vote_by) {
-          setUpVotesQty((u) => u + 1)
+    const fetchData = async () => {
+      const response = await apiService.get(`/users/${post.owner}/`)
+      const errors = response.errors
+      if (errors) return
+
+      const data: User = response
+      if (data) {
+        const updatedData: User = {
+          ...data,
+          profile_data: {
+            ...data.profile_data,
+            profile_image:
+              data.profile_data?.profile_image &&
+              `${process.env.NEXT_PUBLIC_URL}${data.profile_data.profile_image}`
+          }
         }
-      })
+        setUserProfile(updatedData)
+      }
     }
-    if (post.comments) {
-      setCommentsQty(post.comments.length)
+    const countVotesAndComments = () => {
+      if (post.votes) {
+        setUpVotesQty(post.votes.filter((vote) => vote.up_vote_by).length)
+      }
+      if (post.comments) {
+        setCommentsQty(post.comments.length)
+      }
     }
+    fetchData()
+    countVotesAndComments()
   }, [post])
 
   return (
@@ -38,9 +60,14 @@ export const Post: React.FC<PostProps> = ({ post }) => {
           <UserCard
             key={post.id}
             id={post.owner}
-            image={defaultUser}
-            alt="imagem do usuário"
-            username="a"
+            image={userProfile?.profile_data?.profile_image || defaultUser}
+            alt={
+              'Imagem de ' +
+              userProfile?.first_name +
+              ' ' +
+              userProfile?.last_name
+            }
+            username={userProfile?.first_name + ' ' + userProfile?.last_name}
             inPost
             activity={post.post_date.toString()}
           />
@@ -72,15 +99,11 @@ export const Post: React.FC<PostProps> = ({ post }) => {
           >
             <MessageSquareMore /> {commentsQty || ''}
           </div>
-          <div className="flex cursor-pointer items-center gap-2 text-xs">
-            <Share2 />
-          </div>
         </div>
         {/* comments */}
         {commentOpen && (
           <div className="w-full">
-            {' '}
-            <Comments comments={post.comments} />{' '}
+            <PostComments comments={post.comments} />
           </div>
         )}
       </div>
