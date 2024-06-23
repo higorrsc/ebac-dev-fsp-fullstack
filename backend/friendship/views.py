@@ -64,16 +64,18 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
         request.data["_mutable"] = True
         request.data["request_from"] = self.request.user.pk
         request.data["_mutable"] = False
+
         already_friends = FriendshipRequest.objects.filter(
             request_from=request.data["request_from"],
             request_to=request.data["request_to"],
             status_request="accepted",
-        ).exists
+        ).exists()
+
         already_sent = FriendshipRequest.objects.filter(
             request_from=request.data["request_from"],
             request_to=request.data["request_to"],
             status_request="pending",
-        ).exists
+        ).exists()
 
         if already_friends:
             return Response({"message": "Vocês já são amigos..."})
