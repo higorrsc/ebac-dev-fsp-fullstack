@@ -41,22 +41,24 @@ export const PostComments: React.FC<PostCommentProps> = ({ comments }) => {
   return (
     <div className="w-full">
       {/* new comment */}
-      <div className="mt-4 flex items-center justify-between gap-2">
-        <UserCard
-          id={userProfile?.id}
-          image={userProfile?.profile_data?.profile_image}
-          username={userProfile?.first_name + ' ' + userProfile?.last_name}
-          onlyImage
-        />
-        <input
-          type="text"
-          placeholder="Escreva um comentário..."
-          className="ml-2 w-full rounded border border-solid bg-transparent px-2 text-sm"
-        />
-        <Button className="h-10 w-20 rounded bg-blue-600 text-xs hover:bg-blue-900">
-          Comentar
-        </Button>
-      </div>
+      {userProfile && (
+        <div className="mt-4 flex items-center justify-between gap-2">
+          <UserCard
+            id={userProfile?.id}
+            image={userProfile?.profile_data?.profile_image}
+            username={userProfile?.first_name + ' ' + userProfile?.last_name}
+            onlyImage
+          />
+          <input
+            type="text"
+            placeholder="Escreva um comentário..."
+            className="ml-2 w-full rounded border border-solid bg-transparent px-2 text-sm"
+          />
+          <Button className="h-10 w-20 rounded bg-blue-600 text-xs hover:bg-blue-900">
+            Comentar
+          </Button>
+        </div>
+      )}
       {/* all comments */}
       {comments &&
         comments.map((comment) => (
