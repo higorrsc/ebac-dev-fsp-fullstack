@@ -1,38 +1,33 @@
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { Ellipsis, Heart, MessageSquareMore, Share2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import Comments from '@/components/comment'
 import { UserCard } from '@/components/usercard'
 import defaultUser from '@/images/profile/default-user.png'
+import { Post as PostType } from '@/lib/types'
+import Comments from '@/components/posts/postcomment'
 
 type PostProps = {
-  id: number
-  userId: number
-  username: string
-  image?: StaticImageData | string
-  content: string
-  date: string
-  category: string
+  post: PostType
 }
-export const Post: React.FC<PostProps> = ({
-  id,
-  userId,
-  username,
-  image,
-  content,
-  date,
-  category
-}) => {
-  // const [liked, setLiked] = useState(true)
-
-  // useEffect(() => {
-  //   setLiked(false)
-  // }, [id])
-
+export const Post: React.FC<PostProps> = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false)
+  const [commentsQty, setCommentsQty] = useState(0)
+  const [upVotesQty, setUpVotesQty] = useState(0)
 
-  const liked = true
+  useEffect(() => {
+    if (post.votes) {
+      const allVotes = post.votes
+      allVotes.map((vote) => {
+        if (vote.up_vote_by) {
+          setUpVotesQty((u) => u + 1)
+        }
+      })
+    }
+    if (post.comments) {
+      setCommentsQty(post.comments.length)
+    }
+  }, [post])
 
   return (
     <div className="rounded-2xl border-2 shadow-xl">
@@ -40,40 +35,41 @@ export const Post: React.FC<PostProps> = ({
         {/* user */}
         <div className="flex items-center justify-between">
           <UserCard
-            key={id}
-            id={userId}
+            key={post.id}
+            id={post.owner}
             image={defaultUser}
             alt="imagem do usuário"
-            username={username}
+            username="a"
             inPost
-            activity={date}
+            activity={post.post_date.toString()}
           />
           <Ellipsis />
         </div>
         {/* content */}
         <div className="my-4">
-          <p>{content}</p>
-          {image && (
+          <p>{post.content}</p>
+          {post.post_image && (
             <Image
-              src={image}
-              alt={content}
+              src={post.post_image}
+              alt={post.content}
               width={800}
               height={800}
               className="mt-4 object-cover"
             />
           )}
-          <p className="text-center">{category}</p>
+          <p className="text-center">{post.category}</p>
         </div>
         {/* info */}
         <div className="flex items-center gap-5">
           <div className="flex cursor-pointer items-center gap-2 text-xs">
-            {liked ? <Heart fill="red" /> : <Heart />} 12
+            {upVotesQty > 0 ? <Heart fill="red" /> : <Heart />}{' '}
+            {upVotesQty || ''}
           </div>
           <div
             className="flex cursor-pointer items-center gap-2 text-xs"
             onClick={() => setCommentOpen(!commentOpen)}
           >
-            <MessageSquareMore /> 12
+            <MessageSquareMore /> {commentsQty || ''}
           </div>
           <div className="flex cursor-pointer items-center gap-2 text-xs">
             <Share2 />
@@ -83,7 +79,7 @@ export const Post: React.FC<PostProps> = ({
         {commentOpen && (
           <div className="w-full">
             {' '}
-            <Comments />{' '}
+            <Comments comments={post.comments} />{' '}
           </div>
         )}
       </div>
