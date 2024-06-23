@@ -54,8 +54,7 @@ export default function SideBar() {
               <UserCard
                 key={user.id}
                 id={user.id}
-                image={user.profile_data?.profile_image || defaultUser}
-                alt="imagem do usuário"
+                image={user.profile_data?.profile_image}
                 username={user.first_name + ' ' + user.last_name}
                 follow
               />

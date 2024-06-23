@@ -39,13 +39,7 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
       <div className="flex max-w-xl flex-1 flex-col items-start gap-1">
         <UserCard
           id={userProfile?.id}
-          image={userProfile?.profile_data?.profile_image || defaultUser}
-          alt={
-            'Imagem de ' +
-            userProfile?.first_name +
-            ' ' +
-            userProfile?.last_name
-          }
+          image={userProfile?.profile_data?.profile_image}
           username={userProfile?.first_name + ' ' + userProfile?.last_name}
         />
         <p className="pl-10 text-sm">{comment.comment}</p>

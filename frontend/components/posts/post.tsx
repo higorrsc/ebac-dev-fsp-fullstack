@@ -60,13 +60,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
           <UserCard
             key={post.id}
             id={post.owner}
-            image={userProfile?.profile_data?.profile_image || defaultUser}
-            alt={
-              'Imagem de ' +
-              userProfile?.first_name +
-              ' ' +
-              userProfile?.last_name
-            }
+            image={userProfile?.profile_data?.profile_image}
             username={userProfile?.first_name + ' ' + userProfile?.last_name}
             inPost
             activity={post.post_date.toString()}

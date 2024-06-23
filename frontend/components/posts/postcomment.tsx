@@ -44,13 +44,7 @@ export const PostComments: React.FC<PostCommentProps> = ({ comments }) => {
       <div className="mt-4 flex items-center justify-between gap-2">
         <UserCard
           id={userProfile?.id}
-          image={userProfile?.profile_data?.profile_image || defaultUser}
-          alt={
-            'Imagem de ' +
-            userProfile?.first_name +
-            ' ' +
-            userProfile?.last_name
-          }
+          image={userProfile?.profile_data?.profile_image}
           username={userProfile?.first_name + ' ' + userProfile?.last_name}
           onlyImage
         />
