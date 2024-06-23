@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
 import apiService from '@/app/services/apiService'
+import { Comment } from '@/components/comment'
 import { UserCard } from '@/components/usercard'
 import { Button } from '@/components/ui/button'
 import defaultUser from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { Comment as CommentType, User } from '@/lib/types'
-import Comment from '../comment'
 
-type CommentProps = {
+type PostCommentProps = {
   comments?: CommentType[]
 }
 
-export const Comments: React.FC<CommentProps> = ({ comments }) => {
+export const PostComments: React.FC<PostCommentProps> = ({ comments }) => {
   const [userProfile, setUserProfile] = useState<User | null>(null)
 
   useEffect(() => {
