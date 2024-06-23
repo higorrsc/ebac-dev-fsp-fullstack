@@ -1,14 +1,13 @@
-import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 type UserCardProps = {
   id: number
   username: string
-  image: string | StaticImageData
-  alt: string
+  image: string
   activity?: string
   time?: string
   online?: boolean
@@ -19,8 +18,7 @@ type UserCardProps = {
 export const UserCard: React.FC<UserCardProps> = ({
   id,
   username,
-  image: src,
-  alt,
+  image,
   activity,
   time,
   online,
@@ -32,13 +30,13 @@ export const UserCard: React.FC<UserCardProps> = ({
     <div className="relative flex items-center justify-between">
       <Link href={`/profile/${id}`}>
         <div className="flex items-center gap-2">
-          <Image
-            src={src}
-            alt={alt}
-            width={32}
-            height={32}
-            className="h-auto w-auto rounded-full object-cover"
-          />
+          <Avatar>
+            <AvatarImage src={image} />
+            <AvatarFallback>
+              {username.split(' ')[0][0].toUpperCase() +
+                username.split(' ')[1][0].toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
           {!onlyImage && (
             <>
               {inPost ? (
