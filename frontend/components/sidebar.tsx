@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import apiService from '@/app/services/apiService'
 import InfoBlock from '@/components/infoblock'
-import { UserCard } from '@/components/usercard'
+import { UserCard } from '@/components/user/usercard'
 import defaultUser from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { User } from '@/lib/types'

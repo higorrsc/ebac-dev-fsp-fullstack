@@ -9,11 +9,11 @@ import Header from '@/components/header'
 import ModalMessage from '@/components/modalmessage'
 import PostBar from '@/components/posts/postbar'
 import { Button } from '@/components/ui/button'
-import UserHero from '@/components/userhero'
+import UserHero from '@/components/user/userhero'
 import defaultProfilePicture from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { User } from '@/lib/types'
-import UserProfile from '@/components/userprofile'
+import UserProfile from '@/components/user/userprofile'
 
 export default function Profile({ params }: { params: { id: number } }) {
   const [isModalOpen, setIsModalOpen] = useState(false)

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import apiService from '@/app/services/apiService'
 import { PostComments } from '@/components/posts/postcomment'
-import { UserCard } from '@/components/usercard'
+import { UserCard } from '@/components/user/usercard'
 import defaultUser from '@/images/profile/default-user.png'
 import { Post as PostType, User } from '@/lib/types'
 

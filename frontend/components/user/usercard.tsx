@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 type UserCardProps = {
   id: number

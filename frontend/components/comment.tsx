@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import apiService from '@/app/services/apiService'
-import { UserCard } from '@/components/usercard'
+import { UserCard } from '@/components/user/usercard'
 import defaultUser from '@/images/profile/default-user.png'
 import { Comment as CommentType, User } from '@/lib/types'
 

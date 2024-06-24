@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import apiService from '@/app/services/apiService'
 import { Comment } from '@/components/comment'
-import { UserCard } from '@/components/usercard'
+import { UserCard } from '@/components/user/usercard'
 import { Button } from '@/components/ui/button'
 import defaultUser from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
@@ -17,22 +17,25 @@ export const PostComments: React.FC<PostCommentProps> = ({ comments }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await apiService.get(`/users/${await getUserId()}/`)
-      const errors = response.errors
-      if (errors) return
+      const userProfile = await getUserId()
+      if (userProfile) {
+        const response = await apiService.get(`/users/${await getUserId()}/`)
+        const errors = response.errors
+        if (errors) return
 
-      const data: User = response
-      if (data) {
-        const updatedData: User = {
-          ...data,
-          profile_data: {
-            ...data.profile_data,
-            profile_image:
-              data.profile_data?.profile_image &&
-              `${process.env.NEXT_PUBLIC_URL}${data.profile_data.profile_image}`
+        const data: User = response
+        if (data) {
+          const updatedData: User = {
+            ...data,
+            profile_data: {
+              ...data.profile_data,
+              profile_image:
+                data.profile_data?.profile_image &&
+                `${process.env.NEXT_PUBLIC_URL}${data.profile_data.profile_image}`
+            }
           }
+          setUserProfile(updatedData)
         }
-        setUserProfile(updatedData)
       }
     }
     fetchData()
