@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import apiService from '@/app/services/apiService'
 import InfoBlock from '@/components/infoblock'
 import { UserCard } from '@/components/user/usercard'
-import defaultUser from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { User } from '@/lib/types'
 
@@ -18,13 +17,13 @@ export default function SideBar() {
       setUserId(await getUserId())
       if (!userId) return
 
-      const response = await apiService.getWithAuth(`/friendship/find_friends/`)
+      const response = await apiService.getWithAuth('/friendship/find_friends/')
       const errors = response.errors
       if (errors) return
 
-      const data = response
-      if (data) {
-        const updatedData = data.map(
+      const friendsData = response
+      if (friendsData) {
+        const updatedData = friendsData.map(
           (user: {
             profile_data: {
               profile_image?: string
@@ -40,6 +39,20 @@ export default function SideBar() {
           })
         )
         setUsersProfile(updatedData)
+
+        const response = await apiService.getWithAuth(
+          '/friendship/sent_requests/'
+        )
+        const errors = response.errors
+        if (errors) return
+
+        const sentUserId = response
+        if (sentUserId) {
+          const sentUsers = sentUserId.map((user: { id: number }) => user.id)
+          setUsersProfile((u) =>
+            u.filter((user) => !sentUsers.includes(user.id))
+          )
+        }
       }
     }
     fetchData()
