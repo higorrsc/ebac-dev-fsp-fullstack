@@ -21,7 +21,7 @@ function ModalMessage({
   return (
     <>
       <div className="fixed right-0 top-0 flex h-screen w-screen items-center justify-center bg-black bg-opacity-30">
-        <div className="w-11/12 rounded-3xl bg-white p-10 shadow-md sm:w-80">
+        <div className="w-11/12 rounded-3xl bg-white p-10 shadow-md sm:w-[480px]">
           <h1 className="text-center text-lg font-bold text-black">{title}</h1>
           <div className="grid grid-cols-[64px_auto] items-center gap-4">
             <div>
