@@ -71,7 +71,7 @@ export default function MenuBar() {
     {
       icon: BellIcon,
       label: 'Notificações',
-      href: '#',
+      href: '/notifications',
       notification: notification
     },
     {
