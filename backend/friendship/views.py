@@ -168,12 +168,10 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
 
     @friendrequests.mapping.delete
     def delete_request(self, request, pk):
-        print(pk)
         try:
             incoming_request = FriendshipRequest.objects.filter(
                 request_to=self.request.user, request_from=pk, status_request="pending"
             )
-            print(incoming_request)
             incoming_request.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except:
@@ -184,7 +182,6 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
         sent_requests = FriendshipRequest.objects.filter(
             request_from=self.request.user, status_request="pending"
         )
-        print(sent_requests)
         if sent_requests.exists():
             request_to_users = []
             for i in range(len(sent_requests.values())):
