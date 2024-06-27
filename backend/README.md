@@ -7,16 +7,17 @@ Rede social criada como projeto final para o curso "Profissão: Desenvolvedor Fu
 ### Altere para a branch _backend_ e execute os comandos
 
 ```bash
-  python -m pip install poetry
-  poetry install
+  python -m venv .venv
+  source .venv/bin/activate
+  python -m pip install -r requirements.txt
 ```
 
 ### Execute os comandos de inicialização do Django
 
 ```bash
-  poetry run python manage.py migrate
-  poetry run python manage.py createsuperuser
-  poetry run python manage.py runserver
+  python manage.py migrate
+  python manage.py createsuperuser
+  python manage.py runserver
 ```
 
 ## Documentação da API
