@@ -1,0 +1,25 @@
+name: social_h
+scripts:
+  database_up:
+    - cd backend
+    - docker-compose up -d
+  database_down:
+    - cd backend
+    - docker-compose down
+  server:
+    - cd backend
+    - python manage.py runserver
+  makemigrations:
+    - cd backend
+    - python manage.py makemigrations
+  migrate:
+    - cd backend
+    - python manage.py migrate
+  shell:
+    - cd backend
+    - python manage.py shell
+  test:
+    - cd backend
+    - pytest
+  secret:
+    - python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
