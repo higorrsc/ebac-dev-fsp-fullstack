@@ -8,7 +8,11 @@ const headers = {
 }
 
 const apiService = {
-  get: async function (url: string): Promise<any> {
+  get: async function (url: string, withAuth: boolean = false): Promise<any> {
+    if (withAuth) {
+      const token = await getToken(ACCESS_TOKEN_NAME)
+      if (token) headers.Authorization = `Bearer ${token}`
+    }
     return new Promise((resolve, reject) => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
         method: 'GET',
@@ -22,7 +26,15 @@ const apiService = {
     })
   },
 
-  post: async function (url: string, data: any): Promise<any> {
+  post: async function (
+    url: string,
+    data: any,
+    withAuth: boolean = false
+  ): Promise<any> {
+    if (withAuth) {
+      const token = await getToken(ACCESS_TOKEN_NAME)
+      if (token) headers.Authorization = `Bearer ${token}`
+    }
     return new Promise((resolve, reject) => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
         method: 'POST',
@@ -37,14 +49,20 @@ const apiService = {
     })
   },
 
-  getWithAuth: async function (url: string): Promise<any> {
-    const token = await getToken(ACCESS_TOKEN_NAME)
-    if (token) headers.Authorization = `Bearer ${token}`
-
+  put: async function (
+    url: string,
+    data: any,
+    withAuth: boolean = false
+  ): Promise<any> {
+    if (withAuth) {
+      const token = await getToken(ACCESS_TOKEN_NAME)
+      if (token) headers.Authorization = `Bearer ${token}`
+    }
     return new Promise((resolve, reject) => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-        method: 'GET',
-        headers
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(data)
       })
         .then((response) => response.json())
         .then((json) => {
@@ -54,13 +72,41 @@ const apiService = {
     })
   },
 
-  postWithAuth: async function (url: string, data: any): Promise<any> {
-    const token = await getToken(ACCESS_TOKEN_NAME)
-    if (token) headers.Authorization = `Bearer ${token}`
-
+  patch: async function (
+    url: string,
+    data: any,
+    withAuth: boolean = false
+  ): Promise<any> {
+    if (withAuth) {
+      const token = await getToken(ACCESS_TOKEN_NAME)
+      if (token) headers.Authorization = `Bearer ${token}`
+    }
     return new Promise((resolve, reject) => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-        method: 'POST',
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify(data)
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json)
+        })
+        .catch((error) => reject(error))
+    })
+  },
+
+  delete: async function (
+    url: string,
+    data: any,
+    withAuth: boolean = false
+  ): Promise<any> {
+    if (withAuth) {
+      const token = await getToken(ACCESS_TOKEN_NAME)
+      if (token) headers.Authorization = `Bearer ${token}`
+    }
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+        method: 'DELETE',
         headers,
         body: JSON.stringify(data)
       })

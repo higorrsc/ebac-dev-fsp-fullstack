@@ -30,8 +30,9 @@ export default function MenuBar() {
       setUserId(await getUserId(ACCESS_TOKEN_NAME))
       if (!userId) return
 
-      const response = await apiService.getWithAuth(
-        '/friendship/incoming_requests'
+      const response = await apiService.get(
+        '/friendship/incoming_requests',
+        true
       )
 
       const data = response

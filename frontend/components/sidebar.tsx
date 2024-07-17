@@ -18,7 +18,7 @@ export default function SideBar() {
       setUserId(await getUserId(ACCESS_TOKEN_NAME))
       if (!userId) return
 
-      const response = await apiService.getWithAuth('/friendship/find_friends/')
+      const response = await apiService.get('/friendship/find_friends/', true)
       const errors = response.errors
       if (errors) return
 
@@ -41,8 +41,9 @@ export default function SideBar() {
         )
         setUsersProfile(updatedData)
 
-        const response = await apiService.getWithAuth(
-          '/friendship/sent_requests/'
+        const response = await apiService.get(
+          '/friendship/sent_requests/',
+          true
         )
         const errors = response.errors
         if (errors) return
