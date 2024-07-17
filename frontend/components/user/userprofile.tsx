@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react'
 
 import apiService from '@/app/services/apiService'
-import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getUserId } from '@/lib/actions'
+import { ACCESS_TOKEN_NAME } from '@/constants'
 import { User } from '@/lib/types'
 
 type ModalUserProfileProps = {
@@ -18,7 +18,7 @@ function UserProfile({ onClose }: ModalUserProfileProps) {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      setUserId(await getUserId())
+      setUserId(await getUserId(ACCESS_TOKEN_NAME))
       const response = await apiService.get(`/users/${userId}/`)
       const errors = response.errors
       setModalDescription('')

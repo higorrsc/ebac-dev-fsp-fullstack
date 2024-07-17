@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import defaultUser from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { Comment as CommentType, User } from '@/lib/types'
+import { ACCESS_TOKEN_NAME } from '@/constants'
 
 type PostCommentProps = {
   comments?: CommentType[]
@@ -17,9 +18,9 @@ export const PostComments: React.FC<PostCommentProps> = ({ comments }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userProfile = await getUserId()
+      const userProfile = await getUserId(ACCESS_TOKEN_NAME)
       if (userProfile) {
-        const response = await apiService.get(`/users/${await getUserId()}/`)
+        const response = await apiService.get(`/users/${userProfile}/`)
         const errors = response.errors
         if (errors) return
 

@@ -9,7 +9,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import apiService from '@/app/services/apiService'
 import ModalMessage from '@/components/modalmessage'
-import { getUserId, handleLogin } from '@/lib/actions'
+import { getUserId, setToken } from '@/lib/actions'
+import {
+  ACCESS_TOKEN_NAME,
+  REFRESH_TOKEN_NAME,
+  TOKEN_LIFE_LONG,
+  TOKEN_LIFE_SHORT
+} from '@/constants'
 
 const loginSchema = z.object({
   username: z.string().trim().min(1, {
@@ -33,7 +39,7 @@ export default function LoginAccount() {
 
   useEffect(() => {
     ;(async () => {
-      const gUserId = await getUserId()
+      const gUserId = await getUserId(ACCESS_TOKEN_NAME)
       setUserId(gUserId)
     })()
   })
@@ -54,7 +60,8 @@ export default function LoginAccount() {
     }
 
     if (response.access && response.refresh) {
-      handleLogin(response.access, response.refresh)
+      setToken(ACCESS_TOKEN_NAME, response.access, TOKEN_LIFE_SHORT)
+      setToken(REFRESH_TOKEN_NAME, response.refresh, TOKEN_LIFE_LONG)
       router.push('/')
     } else {
       setIsOpen(true)

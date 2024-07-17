@@ -7,6 +7,7 @@ import InfoBlock from '@/components/infoblock'
 import { UserCard } from '@/components/user/usercard'
 import { getUserId } from '@/lib/actions'
 import { User } from '@/lib/types'
+import { ACCESS_TOKEN_NAME } from '@/constants'
 
 export default function SideBar() {
   const [usersProfile, setUsersProfile] = useState<User[] | null>(null)
@@ -14,7 +15,7 @@ export default function SideBar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setUserId(await getUserId())
+      setUserId(await getUserId(ACCESS_TOKEN_NAME))
       if (!userId) return
 
       const response = await apiService.getWithAuth('/friendship/find_friends/')

@@ -15,8 +15,9 @@ import { useRouter } from 'next/navigation'
 
 import { MenuItem } from '@/components/menu/menuitem'
 import logo from '@/images/logo-h.png'
-import { getUserId, resetAuthCookies } from '@/lib/actions'
+import { getUserId, deleteToken } from '@/lib/actions'
 import apiService from '@/app/services/apiService'
+import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME } from '@/constants'
 
 export default function MenuBar() {
   const router = useRouter()
@@ -26,7 +27,7 @@ export default function MenuBar() {
 
   useEffect(() => {
     const fetchNotification = async () => {
-      setUserId(await getUserId())
+      setUserId(await getUserId(ACCESS_TOKEN_NAME))
       if (!userId) return
 
       const response = await apiService.getWithAuth(
@@ -37,7 +38,7 @@ export default function MenuBar() {
       if (data) setNotification(data.length)
     }
     const fetchUserId = async () => {
-      setUserId(await getUserId())
+      setUserId(await getUserId(ACCESS_TOKEN_NAME))
       if (!userId) {
         setRoute('/login')
       } else {
@@ -49,7 +50,8 @@ export default function MenuBar() {
   }, [userId])
 
   const handleLogout = async () => {
-    await resetAuthCookies()
+    deleteToken(ACCESS_TOKEN_NAME)
+    deleteToken(REFRESH_TOKEN_NAME)
     setUserId(null)
     router.push('/login')
   }

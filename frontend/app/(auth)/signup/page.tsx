@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import apiService from '@/app/services/apiService'
 import ModalMessage from '@/components/modalmessage'
 import { getUserId } from '@/lib/actions'
+import { ACCESS_TOKEN_NAME } from '@/constants'
 
 const registerUserSchema = z
   .object({
@@ -40,7 +41,7 @@ type FormData = z.infer<typeof registerUserSchema>
 export default function SignUp() {
   const [hasError, setHasError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [userId, setUserId] = useState<string | null>('')
+  const [userId, setUserId] = useState<number | null>(null)
   const [modalDescription, setModalDescription] = useState('')
 
   const router = useRouter()
@@ -54,7 +55,7 @@ export default function SignUp() {
 
   useEffect(() => {
     ;(async () => {
-      const gUserId = await getUserId()
+      const gUserId = await getUserId(ACCESS_TOKEN_NAME)
       setUserId(gUserId)
     })()
   })

@@ -22,7 +22,6 @@ export const UserCard: React.FC<UserCardProps> = ({
   image,
   activity,
   time,
-  online,
   follow,
   inPost,
   onlyImage = false

@@ -14,6 +14,7 @@ import defaultProfilePicture from '@/images/profile/default-user.png'
 import { getUserId } from '@/lib/actions'
 import { User } from '@/lib/types'
 import UserProfile from '@/components/user/userprofile'
+import { ACCESS_TOKEN_NAME } from '@/constants'
 
 export default function Profile({ params }: { params: { id: number } }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,7 +36,7 @@ export default function Profile({ params }: { params: { id: number } }) {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      setUserId(await getUserId())
+      setUserId(await getUserId(ACCESS_TOKEN_NAME))
       const response = await apiService.get(`/users/${params.id}/`)
       const errors = response.errors
       setModalDescription('')
