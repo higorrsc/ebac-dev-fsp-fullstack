@@ -1,4 +1,5 @@
-import { getAccessToken } from '@/lib/actions'
+import { getToken } from '@/lib/actions'
+import { ACCESS_TOKEN_NAME } from '@/constants'
 
 const headers = {
   Accept: 'application/json',
@@ -37,7 +38,7 @@ const apiService = {
   },
 
   getWithAuth: async function (url: string): Promise<any> {
-    const token = await getAccessToken()
+    const token = await getToken(ACCESS_TOKEN_NAME)
     if (token) headers.Authorization = `Bearer ${token}`
 
     return new Promise((resolve, reject) => {
@@ -54,7 +55,7 @@ const apiService = {
   },
 
   postWithAuth: async function (url: string, data: any): Promise<any> {
-    const token = await getAccessToken()
+    const token = await getToken(ACCESS_TOKEN_NAME)
     if (token) headers.Authorization = `Bearer ${token}`
 
     return new Promise((resolve, reject) => {
