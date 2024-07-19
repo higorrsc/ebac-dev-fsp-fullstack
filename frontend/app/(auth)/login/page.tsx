@@ -13,8 +13,8 @@ import { getUserId, setToken } from '@/lib/actions'
 import {
   ACCESS_TOKEN_NAME,
   REFRESH_TOKEN_NAME,
-  TOKEN_AGE_WEEK,
-  TOKEN_AGE_HOUR
+  TOKEN_LIFETIME_WEEK,
+  TOKEN_LIFETIME_HOUR
 } from '@/constants'
 
 const loginSchema = z.object({
@@ -60,8 +60,8 @@ export default function LoginAccount() {
     }
 
     if (response.access && response.refresh) {
-      setToken(ACCESS_TOKEN_NAME, response.access, TOKEN_AGE_HOUR)
-      setToken(REFRESH_TOKEN_NAME, response.refresh, TOKEN_AGE_WEEK)
+      setToken(ACCESS_TOKEN_NAME, response.access, TOKEN_LIFETIME_HOUR)
+      setToken(REFRESH_TOKEN_NAME, response.refresh, TOKEN_LIFETIME_WEEK)
       router.push('/')
     } else {
       setIsOpen(true)
