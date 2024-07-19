@@ -1,15 +1,14 @@
-from api.views import BlacklistTokenUpdateView
-from django.urls import path
-from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenRefreshView
-
 from comments.views import CommentViewSet
+from django.urls import path
 from friendship.views import FriendshipRequestViewSet
 from posts.views import PostViewSet
-from users.views import UserViewSet
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenRefreshView
 from user_profile.views import ProfileViewSet
+from users.views import UserViewSet
 from votes.views import VoteViewSet
-from .views import CustomTokenObtainPairView, UserLogout
+
+from .views import BlacklistTokenUpdateView, CustomTokenObtainPairView, UserLogout
 
 urlpatterns = [
     path("token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
