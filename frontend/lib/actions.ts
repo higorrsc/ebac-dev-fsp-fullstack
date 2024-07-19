@@ -13,7 +13,7 @@ export async function getToken(name: string) {
 }
 
 export async function setToken(name: string, value: string, maxAge: number) {
-  return cookies().set({
+  cookies().set({
     name,
     value,
     httpOnly: true,
@@ -24,7 +24,7 @@ export async function setToken(name: string, value: string, maxAge: number) {
 }
 
 export async function deleteToken(name: string) {
-  return cookies().delete(name)
+  cookies().delete(name)
 }
 
 export async function isValidToken(name: string) {
