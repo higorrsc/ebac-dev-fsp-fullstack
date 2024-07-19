@@ -6,15 +6,6 @@
       "source.organizeImports": "always"
     }
   },
-  "isort.args": ["--profile", "black"],
-  "python.analysis.typeCheckingMode": "basic",
-  "python.analysis.autoImportCompletions": true,
-  "emmet.includeLanguages": {
-    "django-html": "html"
-  },
-  "python.testing.pytestArgs": ["."],
-  "python.testing.unittestEnabled": false,
-  "python.testing.pytestEnabled": true,
   "cSpell.words": [
     "viewsets",
     "postbar",
@@ -23,5 +14,15 @@
     "modalmessage",
     "signup",
     "hookform"
-  ]
+  ],
+  "editor.rulers": [80, 120],
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+  "isort.args": ["--profile", "black"],
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.testing.pytestArgs": ["."],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
 }
