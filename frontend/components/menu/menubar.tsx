@@ -51,8 +51,8 @@ export default function MenuBar() {
   }, [userId])
 
   const handleLogout = async () => {
-    deleteToken(ACCESS_TOKEN_NAME)
-    deleteToken(REFRESH_TOKEN_NAME)
+    await deleteToken(ACCESS_TOKEN_NAME)
+    await deleteToken(REFRESH_TOKEN_NAME)
     setUserId(null)
     router.push('/login')
   }
