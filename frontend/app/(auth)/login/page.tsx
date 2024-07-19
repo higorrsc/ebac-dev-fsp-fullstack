@@ -60,8 +60,8 @@ export default function LoginAccount() {
     }
 
     if (response.access && response.refresh) {
-      setToken(ACCESS_TOKEN_NAME, response.access, TOKEN_LIFETIME_HOUR)
-      setToken(REFRESH_TOKEN_NAME, response.refresh, TOKEN_LIFETIME_WEEK)
+      await setToken(ACCESS_TOKEN_NAME, response.access, TOKEN_LIFETIME_HOUR)
+      await setToken(REFRESH_TOKEN_NAME, response.refresh, TOKEN_LIFETIME_WEEK)
       router.push('/')
     } else {
       setIsOpen(true)
