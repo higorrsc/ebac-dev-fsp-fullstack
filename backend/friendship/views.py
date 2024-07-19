@@ -1,14 +1,14 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets, status, permissions
+from django.shortcuts import get_object_or_404, render
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from user_profile.permissions import IsOwnerOrReadOnly
+from users.serializers import UserSerializer
 
 from .models import FriendshipRequest
 from .serializers import FriendshipRequestSerializer
-from user_profile.permissions import IsOwnerOrReadOnly
-from users.serializers import UserSerializer
 
 
 # Create your views here.
@@ -18,25 +18,25 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        user = self.request.user.pk
-        q1 = FriendshipRequest.objects.filter(
+        user = self.request.user
+        sent_requests = FriendshipRequest.objects.filter(
             request_from=user, status_request="accepted"
         )
-        q2 = FriendshipRequest.objects.filter(
+        incoming_requests = FriendshipRequest.objects.filter(
             request_to=user, status_request="accepted"
         )
         result = []
-        if q1.exists and not q2.exists:
-            for i in range(len(q1.values())):
-                result.append(q1.values()[i]["request_from_id"])
-        elif not q1.exists and q2.exists:
-            for i in range(len(q2.values())):
-                result.append(q2.values()[i]["request_to_id"])
-        elif q1.exists and q2.exists:
-            for i in range(len(q1.values())):
-                result.append(q1.values()[i]["request_from_id"])
-            for i in range(len(q2.values())):
-                result.append(q2.values()[i]["request_to_id"])
+        if sent_requests.exists() and not incoming_requests.exists():
+            for i in range(len(sent_requests.values())):
+                result.append(sent_requests.values()[i]["request_to_id"])
+        elif not sent_requests.exists() and incoming_requests.exists():
+            for i in range(len(incoming_requests.values())):
+                result.append(incoming_requests.values()[i]["request_from_id"])
+        elif sent_requests.exists() and incoming_requests.exists():
+            for i in range(len(sent_requests.values())):
+                result.append(sent_requests.values()[i]["request_to_id"])
+            for i in range(len(incoming_requests.values())):
+                result.append(incoming_requests.values()[i]["request_from_id"])
         else:
             pass
 
@@ -47,7 +47,7 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
         try:
             friend = FriendshipRequest.objects.filter(request_from=user, request_to=pk)
             if self.request.method == "GET":
-                if friend.exists:
+                if friend.exists():
                     friend_id = friend.values()[0]["request_to_id"]
                     return User.objects.get(id=friend_id)
             elif self.request.method == "PUT" or self.request.method == "DELETE":
@@ -113,24 +113,24 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["GET"])
     def find_friends(self, request):
         user = self.request.user.pk
-        q1 = FriendshipRequest.objects.filter(
+        sent_requests = FriendshipRequest.objects.filter(
             request_from=user, status_request="accepted"
         )
-        q2 = FriendshipRequest.objects.filter(
+        incoming_requests = FriendshipRequest.objects.filter(
             request_to=user, status_request="accepted"
         )
         result = [user]
-        if q1.exists and not q2.exists:
-            for i in range(len(q1.values())):
-                result.append(q1.values()[i]["request_to_id"])
-        elif not q1.exists and q2.exists:
-            for i in range(len(q2.values())):
-                result.append(q2.values()[i]["request_from_id"])
-        elif q1.exists and q2.exists:
-            for i in range(len(q1.values())):
-                result.append(q1.values()[i]["request_to_id"])
-            for i in range(len(q2.values())):
-                result.append(q2.values()[i]["request_from_id"])
+        if sent_requests.exists() and not incoming_requests.exists():
+            for i in range(len(sent_requests.values())):
+                result.append(sent_requests.values()[i]["request_to_id"])
+        elif not sent_requests.exists() and incoming_requests.exists():
+            for i in range(len(incoming_requests.values())):
+                result.append(incoming_requests.values()[i]["request_from_id"])
+        elif sent_requests.exists() and incoming_requests.exists():
+            for i in range(len(sent_requests.values())):
+                result.append(sent_requests.values()[i]["request_to_id"])
+            for i in range(len(incoming_requests.values())):
+                result.append(incoming_requests.values()[i]["request_from_id"])
         else:
             pass
 
@@ -143,7 +143,7 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
         incoming_requests = FriendshipRequest.objects.filter(
             request_to=self.request.user, status_request="pending"
         )
-        if incoming_requests.exists:
+        if incoming_requests.exists():
             request_from_users = []
             for i in range(len(incoming_requests.values())):
                 request_from_users.append(
@@ -153,13 +153,14 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
             serializer = UserSerializer(pending, many=True)
             return Response(serializer.data)
         else:
-            return Response({"message": "Nenhuma solicitação pendente..."})
+            return Response({"message": "Nenhuma solicitação recebida pendente..."})
 
     @action(detail=True, methods=["PUT"], name="Accept Friend Request")
     def friendrequests(self, request, pk):
         incoming_request = FriendshipRequest.objects.filter(
             request_to=self.request.user, request_from=pk, status_request="pending"
         ).get()
+        print(incoming_request)
         serializer = FriendshipRequestSerializer(incoming_request, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -190,7 +191,7 @@ class FriendshipRequestViewSet(viewsets.ViewSet):
             serializer = UserSerializer(pending, many=True)
             return Response(serializer.data)
         else:
-            return Response({"message": "No sent Requests Found!!!"})
+            return Response({"message": "Nenhuma solicitação enviada pendente..."})
 
     @action(detail=True, methods=["DELETE"])
     def undo_request(self, request, pk):
