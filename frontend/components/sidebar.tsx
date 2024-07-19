@@ -22,9 +22,9 @@ export default function SideBar() {
       const errors = response.errors
       if (errors) return
 
-      const friendsData = response
-      if (friendsData) {
-        const updatedData = friendsData.map(
+      const friends = response
+      if (friends) {
+        const updatedData = friends.map(
           (user: {
             profile_data: {
               profile_image?: string
@@ -49,10 +49,10 @@ export default function SideBar() {
         if (errors) return
 
         const sentUserId = response
-        if (sentUserId) {
+        if (!sentUserId.message) {
           const sentUsers = sentUserId.map((user: { id: number }) => user.id)
           setUsersProfile((u) =>
-            u.filter((user) => !sentUsers.includes(user.id))
+            u!.filter((user) => !sentUsers.includes(user.id))
           )
         }
       }
