@@ -1,5 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import apiService from '@/app/services/apiService'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -10,6 +13,32 @@ import { User } from '@/lib/types'
 type ModalUserProfileProps = {
   onClose: () => void
 }
+
+const userProfileSchema = z
+  .object({
+    email: z.string().email({ message: 'O e-mail deve ser preenchido' }),
+    firstName: z.string().trim().min(1, {
+      message: 'O nome deve ser preenchido'
+    }),
+    lastName: z.string().trim().min(1, {
+      message: 'O sobrenome deve ser preenchido'
+    }),
+    username: z.string().trim().min(5, {
+      message: 'O nome de usuário deve ter no mínimo 5 caracteres'
+    }),
+    password: z
+      .string()
+      .min(6, { message: 'A senha deve ter no mínimo 6 caracteres' }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: 'A senha deve ter no mínimo 6 caracteres' })
+  })
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: 'As senhas devem ser iguais',
+    path: ['confirmPassword']
+  })
+
+type FormData = z.infer<typeof userProfileSchema>
 
 function UserProfile({ onClose }: ModalUserProfileProps) {
   const [modalDescription, setModalDescription] = useState('')
@@ -42,6 +71,15 @@ function UserProfile({ onClose }: ModalUserProfileProps) {
     fetchProfileData()
   }, [userId])
 
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm<FormData>({
+    mode: 'onBlur',
+    resolver: zodResolver(userProfileSchema)
+  })
+
   return (
     <>
       <div className="fixed right-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-30">
@@ -73,11 +111,11 @@ function UserProfile({ onClose }: ModalUserProfileProps) {
                       placeholder="Nome de usuário"
                       className="w-full border-b-2 bg-transparent p-2 outline-none"
                       value={userData?.username}
-                      // {...register('username')}
+                      {...register('username')}
                     />
-                    {/* {errors.username && (
-                <p className="text-red-500">{errors.username?.message}</p>
-              )} */}
+                    {errors.username && (
+                      <p className="text-red-500">{errors.username?.message}</p>
+                    )}
                   </div>
                 </div>
                 <div className="mb-4 flex gap-2">
@@ -91,11 +129,13 @@ function UserProfile({ onClose }: ModalUserProfileProps) {
                       placeholder="Primeiro nome"
                       className="w-full border-b-2 bg-transparent p-2 outline-none"
                       value={userData?.first_name}
-                      // {...register('firstName')}
+                      {...register('firstName')}
                     />
-                    {/* {errors.firstName && (
-                <p className="text-red-500">{errors.firstName?.message}</p>
-                )} */}
+                    {errors.firstName && (
+                      <p className="text-red-500">
+                        {errors.firstName?.message}
+                      </p>
+                    )}
                   </div>
                   <div className="flex w-full flex-col">
                     <label htmlFor="lastName" className="text-[10px]">
@@ -107,11 +147,11 @@ function UserProfile({ onClose }: ModalUserProfileProps) {
                       placeholder="Último nome"
                       className="w-full border-b-2 bg-transparent p-2 outline-none"
                       value={userData?.last_name}
-                      // {...register('lastName')}
+                      {...register('lastName')}
                     />
-                    {/* {errors.lastName && (
-                <p className="text-red-500">{errors.lastName?.message}</p>
-                )} */}
+                    {errors.lastName && (
+                      <p className="text-red-500">{errors.lastName?.message}</p>
+                    )}
                   </div>
                 </div>
                 <div className="mb-4 flex gap-2">
@@ -156,11 +196,11 @@ function UserProfile({ onClose }: ModalUserProfileProps) {
                     placeholder="E-mail"
                     className="w-full border-b-2 bg-transparent p-2 outline-none"
                     value={userData?.email}
-                    // {...register('email')}
+                    {...register('email')}
                   />
-                  {/* {errors.email && (
+                  {errors.email && (
                     <p className="text-red-500">{errors.email?.message}</p>
-                  )} */}
+                  )}
                 </div>
                 <div className="mb-4 flex w-full flex-col">
                   <label htmlFor="phone" className="text-[10px]">
