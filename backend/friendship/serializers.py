@@ -7,4 +7,4 @@ from .models import FriendshipRequest
 class FriendshipRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = FriendshipRequest
-        fields = ("request_from", "request_to", "status_request")
+        fields = ("id", "request_from", "request_to", "status_request")
