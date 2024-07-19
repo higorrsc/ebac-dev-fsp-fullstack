@@ -37,7 +37,7 @@ export const UserCard: React.FC<UserCardProps> = ({
   const handleFollowLink = async () => {
     const postContent = { request_to: id }
 
-    const response = await apiService.postWithAuth(`/friendship/`, postContent)
+    const response = await apiService.post(`/friendship/`, postContent, true)
     const data = response
     const errors = response.errors
 
